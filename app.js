@@ -8,11 +8,12 @@ const usersRoutes = require("./routes/users");
 
 const fs = require("fs");
 
-const test = fs.readFileSync(__dirname + "/public/test.html", "utf-8");
+const nav = fs.readFileSync(__dirname + "/public/navbar/navbar.html", "utf-8");
 const footer = fs.readFileSync(__dirname + "/public/footer/footer.html", "utf-8");
+const frontPage = fs.readFileSync(__dirname + "/public/frontpage.html", "utf-8"); 
 
 app.get("/", (req, res) => {
-    res.send(test + footer);
+    res.send(nav + frontPage + footer);
 });
 
 
