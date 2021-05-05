@@ -1,1 +1,14 @@
-{}
+{
+    "name": "node_final_project",
+    "version": "0.0.1",
+    "description": "A final project for KEA at node class,  creating a sevice platform where users can set offers for selling and buying services",
+    "main": "app.js",
+    "license": "MIT",
+    "dependencies": {
+        "cross-env": "7.0.3",
+        "express": "4.17.1"
+    },
+    "scripts": {
+        "dev-start": "cross-env PORT=3000 nodemon app.js"
+    }
+}
