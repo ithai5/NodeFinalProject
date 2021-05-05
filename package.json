@@ -9,6 +9,7 @@
         "express": "4.17.1"
     },
     "scripts": {
-        "dev-start": "cross-env PORT=3000 nodemon app.js"
+        "dev-start": "cross-env PORT=3000 nodemon app.js",
+        "production-start": "cross.env PORT=3000 node app.js"
     }
 }
