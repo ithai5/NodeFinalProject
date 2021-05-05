@@ -1,0 +1,13 @@
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #284B63;
+    color: #F4F9E9;
+    text-align: center;
+  }
+
+  body{
+    background: linear-gradient(180deg, #FEFFFE 0%, rgba(255, 255, 255, 0) 100%), rgba(238, 240, 235, 0.2);;
+  }
