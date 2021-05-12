@@ -1,11 +1,13 @@
-const router = require('express').Router()
+import express from 'express'
+
+const routerUser = express.Router()
 
 
-router.get("/login", (req, res) => {
-
+routerUser.get("/login", (req, res) => {
+    res.send({messages: "test"})
 })
 
-router.post("/api/login", (req, res) => {
+routerUser.post("/api/login", (req, res) => {
     const loginInfo = {... req.body};
     
     //condition needs to be connected to the database
@@ -19,6 +21,4 @@ router.post("/api/login", (req, res) => {
 })
 
 
-module.exports = {
-    router: router
-}
+export default routerUser;
