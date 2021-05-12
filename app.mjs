@@ -10,6 +10,8 @@ import passwordToHash from "./passwordManagment.mjs";
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const app = express();
 app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+
 app.use(express.static("public"));
 app.use(routerUser)
 app.use(routerPosts)

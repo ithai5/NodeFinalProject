@@ -1,4 +1,6 @@
 import {loadDB} from "./dbService.mjs"
+import mongodb from "mongodb"
+
 
 //PROMISES
 
@@ -39,7 +41,7 @@ const prUpdatePost = async (id, updates) => {
   const db = await loadDB();
 
   return new Promise((resolve, reject) => {
-    db.collection("posts").updateOne( {id: id}, {$set: updates}, (error, result) => {
+    db.collection("posts").updateOne( {_id: mongodb.ObjectID(id)}, {$set: updates}, (error, result) => {
       if (error) {
         reject(new Error(error));
       } else {
@@ -52,9 +54,9 @@ const prUpdatePost = async (id, updates) => {
 //Promise for deleting a post
 const prDeletePost = async (id) => {
   const db = await loadDB();
-
+  
   return new Promise((resolve, reject) => {
-    db.collection("posts").deleteOne( {id: id}, (error, result) => {
+    db.collection("posts").deleteOne({ _id: new mongodb.ObjectID(id) }, (error, result) => {
       if (error) {
         reject(new Error(error));
       } else {
@@ -73,18 +75,18 @@ async function getPosts() {
 };
 
 //Create one post
-async function createPost(post) {
-  return await (prCreatePost());
+async function createPost(newPost) {
+  return await (prCreatePost(newPost));
 }
 
 //Update one post
-async function updatePost(post) {
-  return await (prUpdatePost());
+async function updatePost(id, updates) {
+  return await (prUpdatePost(id, updates));
 }
 
 //Delete one post
-async function deletePost(post) {
-  return await (prDeletePost());
+async function deletePost(id) {
+  return await (prDeletePost(id));
 }
 
 
