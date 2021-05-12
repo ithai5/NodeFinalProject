@@ -1,11 +1,13 @@
-require('dotenv').config();
-const MongoClient = require("mongodb").MongoClient;
+import mongodb from "mongodb";
+
+const MongoClient = mongodb.MongoClient;
 const url = process.env.DB_CONNECTION;
 const dbName = "NodeExam"
 
 //View posts
 function getPosts() {
   MongoClient.connect(url, {useUnifiedTopology: true}, (error, client) => {
+    
     if (error) {
         throw new Error(error);
     }
@@ -13,12 +15,13 @@ function getPosts() {
     const db = client.db(dbName);
     const posts = db.collection("posts");
     
-    posts.find( {}, (error, result) => {
+     posts.find( {}, (error, result) => {
         if (error) {
             throw new Error(error);
         }
-        console.log(result);
         client.close();
+        console.log(result);
+        return result;
     });
     
   });
@@ -89,6 +92,4 @@ function deletePost(post) {
 };
 
 
-module.exports = {
-  postService: this.postService
-}
+export default {getPosts, createPost, updatePost, deletePost}; 

@@ -1,11 +1,11 @@
-import passwordToHash from "./passwordManagment.mjs";
-import express from "express"
-import fs from "fs"
+import {} from "dotenv/config";
 import { dirname } from "path"
 import { fileURLToPath } from "url";
+import express from "express"
+import fs from "fs"
 import routerPosts from "./routes/posts.mjs";
 import routerUser from "./routes/users.mjs";
-
+import passwordToHash from "./passwordManagment.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const app = express();
