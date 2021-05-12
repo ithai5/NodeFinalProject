@@ -7,6 +7,7 @@ app.use(express.static("public"));
 
 const postsRoutes = require("./routes/posts");
 const usersRoutes = require("./routes/users"); 
+app.use(postsRoutes.router);
 
 const fs = require("fs");
 
@@ -25,7 +26,7 @@ app.get("/", (req, res) => {
 
 const PORT = process.env.PORT || 8080
 
-app.listen(PORT, err => {
-    err? console.log(err) : console.log('App runs on port: ', Number(PORT))
+app.listen(PORT, error => {
+    error? console.log(error) : console.log('App runs on port: ', Number(PORT))
 });
 
