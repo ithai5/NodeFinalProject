@@ -6,7 +6,7 @@ body {
     margin-top: 0%;
     margin-left: 0%;
     width: 100%;
-    height: 4rem;
+    height: 6rem;
     float: top;
     position: sticky;
     background-color: #284B63;
@@ -14,13 +14,14 @@ body {
 
 #navbar a {
     padding-left: 3rem;
-    padding-top: 1rem;
+    padding-top: 2.27rem;
+    padding-bottom: 0rem;
     display: inline-block;
     text-align: center;
     font-family: SourceSansPro-regular;
     color: #B4B8AB;
     font-size: 24px;
-    font-weight: bold;
+    font-weight: bolder;
 
     text-decoration: none;
 }
