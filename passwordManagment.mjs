@@ -4,8 +4,12 @@ const saltRounds = 12;
 
 
 function passwordToHash (password){
-    return bcrypt.hashSync("hello", saltRounds)
+    return bcrypt.hashSync("hello", saltRounds);
 }
 
-export default passwordToHash
+function  compareHash (password, hashed){
+    return bcrypt.compareSync(password, hashed);
+}
+
+export default {passwordToHash, compareHash}
 
