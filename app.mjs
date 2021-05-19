@@ -19,13 +19,15 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 
 const nav = fs.readFileSync(__dirname + "/public/navbar/navbar.html", "utf-8");
 const footer = fs.readFileSync(__dirname + "/public/footer/footer.html", "utf-8");
-const frontPage = fs.readFileSync(__dirname + "/public/frontpage.html", "utf-8"); 
-
+// const frontPage = fs.readFileSync(__dirname + "/public/frontpage.html", "utf-8"); 
+const feed = fs.readFileSync(__dirname + "/public/feed/feed.html", "utf-8");
 
 
 app.get("/", (req, res) => {
-    res.send(nav + frontPage + footer);
+    res.send(nav + feed + footer);
 });
+
+
 
 
 
