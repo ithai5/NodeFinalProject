@@ -1,19 +1,14 @@
 import { promiseGet } from "./dbService.mjs";
 import passwordManagment from "../passwordManagment.mjs"
 
-console.log(passwordManagment.passwordToHash(123456));
-
+const USERS = "users"; 
 async function getUser(query){ 
-    
-console.log(passwordManagment.passwordToHash(query.password));
-    // query = { email: example@mail.com , password: "123456"}
+    const  newHahedPassword = await passwordManagment.passwordToHash(query.password)
+    // query = { email: test@test.dk , password: "123456"}
     //send db query to get user hashed password in return
-    const user = await promiseGet(query = { email : query.email })
+    const user = await promiseGet(USERS,  { email : query.email });
     //compare the query password with the hashed db password
-    //retrun if login succes
-    return await passwordManagment.compareHash(query.password, user.password)
-
-    
+    return await passwordManagment.compareHash(query.password, user[0].password);
 }
 
-export default {}
+export default {getUser}

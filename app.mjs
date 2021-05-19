@@ -5,6 +5,7 @@ import express from "express"
 import fs from "fs"
 import routerPosts from "./routes/posts.mjs";
 import routerUser from "./routes/users.mjs";
+import { ppid } from "process";
 
 
 const app = express();
@@ -19,14 +20,22 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 
 const nav = fs.readFileSync(__dirname + "/public/navbar/navbar.html", "utf-8");
 const footer = fs.readFileSync(__dirname + "/public/footer/footer.html", "utf-8");
-// const frontPage = fs.readFileSync(__dirname + "/public/frontpage.html", "utf-8"); 
 const feed = fs.readFileSync(__dirname + "/public/feed/feed.html", "utf-8");
+const login = fs.readFileSync(__dirname + "/public/login/login.html", "utf-8");
 
 
 app.get("/", (req, res) => {
     res.send(nav + feed + footer);
 });
 
+
+app.get("/login", (req, res)  => {
+    res.send(nav + login + footer);
+});
+
+app.get("/test" , (req,res) => {
+    res.send(nav + footer)
+})
 
 
 
