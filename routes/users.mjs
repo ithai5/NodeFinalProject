@@ -22,5 +22,11 @@ routerUser.post("/api/login", async (req, res) => {
         //Something identifying the logged in user (id?)
 })
 
+routerUser.post("/api/signup", async (req, res) => {
+    const signUpInfo = {... req.body};
+    userService.signUp(signUpInfo).then(result => {
+        res.send(result);
+    });
+});
 
 export default routerUser;

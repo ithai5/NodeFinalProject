@@ -1,4 +1,4 @@
-import { promiseGet } from "./dbService.mjs";
+import { promiseGet, promiseCreate } from "./dbService.mjs";
 import passwordManagment from "../passwordManagment.mjs"
 
 const USERS = "users"; 
@@ -11,4 +11,8 @@ async function getUser(query){
     return await passwordManagment.compareHash(query.password, user[0].password);
 }
 
-export default {getUser}
+async function signUp(signUpInfo) {
+    return await (promiseCreate(USERS, signUpInfo));
+}
+
+export default {getUser, signUp}

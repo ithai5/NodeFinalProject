@@ -22,6 +22,7 @@ const nav = fs.readFileSync(__dirname + "/public/navbar/navbar.html", "utf-8");
 const footer = fs.readFileSync(__dirname + "/public/footer/footer.html", "utf-8");
 const feed = fs.readFileSync(__dirname + "/public/feed/feed.html", "utf-8");
 const login = fs.readFileSync(__dirname + "/public/login/login.html", "utf-8");
+const signup = fs.readFileSync(__dirname + "/public/signup/signup.html", "utf-8");
 
 
 app.get("/", (req, res) => {
@@ -37,6 +38,9 @@ app.get("/test" , (req,res) => {
     res.send(nav + footer)
 })
 
+app.get("/signup", (req, res) => {
+    res.send(nav + signup + footer);
+});
 
 
 
