@@ -5,7 +5,6 @@ import express from "express"
 import fs from "fs"
 import routerPosts from "./routes/posts.mjs";
 import routerUser from "./routes/users.mjs";
-import { ppid } from "process";
 
 
 const app = express();
@@ -18,11 +17,11 @@ app.use(routerPosts);
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
-const nav = fs.readFileSync(__dirname + "/public/navbar/navbar.html", "utf-8");
-const footer = fs.readFileSync(__dirname + "/public/footer/footer.html", "utf-8");
-const feed = fs.readFileSync(__dirname + "/public/feed/feed.html", "utf-8");
-const login = fs.readFileSync(__dirname + "/public/login/login.html", "utf-8");
-const signup = fs.readFileSync(__dirname + "/public/signup/signup.html", "utf-8");
+const nav = fs.readFileSync(__dirname + "/public/templates/navbar/navbar.html", "utf-8");
+const footer = fs.readFileSync(__dirname + "/public/templates/footer/footer.html", "utf-8");
+const feed = fs.readFileSync(__dirname + "/public/components/feed/feed.html", "utf-8");
+const login = fs.readFileSync(__dirname + "/public/components/login/login.html", "utf-8");
+const signup = fs.readFileSync(__dirname + "/public/components/signup/signup.html", "utf-8");
 
 
 app.get("/", (req, res) => {
