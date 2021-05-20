@@ -8,12 +8,27 @@ import routerUser from "./routes/users.mjs";
 
 
 const app = express();
+
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-
 app.use(express.static("public"));
 app.use(routerUser);
 app.use(routerPosts);
+
+
+// app.set('trust proxy', 1) // trust first proxy
+// app.use(session({
+//   secret: process.env.SECRET,
+//   resave: false,
+//   saveUninitialized: true,
+//   cookie: { secure: false },
+//   store: MongoStore.create({ mongoUrl: process.env.DB_CONNECTION, dbName: "NodeExam", collection: "session" })
+// }))
+
+
+
+
+
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
@@ -40,7 +55,6 @@ app.get("/signup", (req, res) => {
 app.get("/createPost", (req, res) => {
     res.send(nav + createPost + footer);
 });
-
 
 
 
