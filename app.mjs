@@ -22,7 +22,7 @@ const footer = fs.readFileSync(__dirname + "/public/templates/footer/footer.html
 const feed = fs.readFileSync(__dirname + "/public/components/feed/feed.html", "utf-8");
 const login = fs.readFileSync(__dirname + "/public/components/login/login.html", "utf-8");
 const signup = fs.readFileSync(__dirname + "/public/components/signup/signup.html", "utf-8");
-
+const createPost = fs.readFileSync(__dirname + "/public/components/post/createPost.html", "utf-8");
 
 app.get("/", (req, res) => {
     res.send(nav + feed + footer);
@@ -33,15 +33,13 @@ app.get("/login", (req, res)  => {
     res.send(nav + login + footer);
 });
 
-app.get("/test" , (req,res) => {
-    res.send(nav + footer)
-})
-
 app.get("/signup", (req, res) => {
     res.send(nav + signup + footer);
 });
 
-
+app.get("/createPost", (req, res) => {
+    res.send(nav + createPost + footer);
+});
 
 
 

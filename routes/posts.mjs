@@ -17,7 +17,6 @@ routerPosts.get("/api/posts/:id", (req, res) => {
 })
 
 routerPosts.post("/api/post", (req, res) => {
-    console.log(req.body);
     postService.createPost(req.body).then(result => {
         res.send(result);
     });
