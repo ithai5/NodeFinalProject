@@ -2,7 +2,7 @@
     margin-top: 10rem;
     border-radius: 10px;
 }
-.login input[type=password], select, textarea,input[type=email] {
+.login input[type=password], select, textarea,input[type=email], input[type=text] {
     width: 100%;
     padding: 12px;
     border: 1px solid #ccc;

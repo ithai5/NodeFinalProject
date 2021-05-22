@@ -37,9 +37,22 @@ routerUser.post("/api/login", async (req, res) => {
 
 routerUser.post("/api/signup", async (req, res) => {
     const signUpInfo = {... req.body};
-    userService.signUp(signUpInfo).then(result => {
-        res.send(result);
-    });
+    const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    console.log(signUpInfo);
+    let checks = [
+        signUpInfo.firstName.length>1, signUpInfo.lastName.length>1, 
+        emailRegex.test(signUpInfo.email), signUpInfo.password.length > 7
+    ]
+    if(!checks.includes(false)){
+        
+        console.log("we are here");
+        userService.signUp(signUpInfo).then(result => {
+            res.send(result);
+        });    
+    }
+    else{
+        res.send({message: "failed to sign-up"})
+    }
 });
 
 export default routerUser;

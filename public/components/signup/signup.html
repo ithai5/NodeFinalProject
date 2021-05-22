@@ -1,6 +1,17 @@
-<form action="/api/signup" method="POST">
-    <input type="email" name="email" placeholder="Your mail" required>
-    <input type="password" name="password" placeholder="Your pass" required>
-    <br/>
-    <input type="submit" value="Sign Up">
-</form>
+<div class="create-post">
+    <form action="/api/signup" method="POST">
+        <label for="fisrtName" >First name:</label>
+        <input type="text" id="firstName" name="firstName" placeholder="Your first name here..." required onchange="checkingInput()">
+        <label for="lastName">Last name:</label>
+        <input type="text" id="lastName" name="lastName" placeholder="Your last name here..." required onchange="checkingInput()">
+        <label for="email">Email: </label>
+        <input type="email" id="email" name="email" placeholder="Your mail" required onchange="checkingInput()">
+        <label for="password">Password: </label>
+        <input type="password" id="password" name="password" placeholder="Your pass" required minlength="8" onchange="checkingInput()">
+        <label for="re-password" minlength="8">Re-enter password:</label>
+        <input type="password" id="rePassword" placeholder="Your pass" required onchange="checkingInput()">
+        <br/>
+        <input type="submit" value="Sign Up" id="signup-button" disabled="disabled">
+    </form>
+</div>
+<script src="./components/signup/signup.js"></script>

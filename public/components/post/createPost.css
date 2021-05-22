@@ -1,9 +1,10 @@
 .create-post{
     border-radius: 10px;
-    margin-top: 3rem
+    margin-top: 3rem;
+    margin-bottom: 3rem;
     
 }
-.create-post input[type=text], input[type=number], select, textarea,input[type=email] {
+.create-post input[type=text], input[type=number], select, textarea,input[type=email], input[type=password] {
     width: 100%;
     padding: 12px;
     border: 1px solid #ccc;
@@ -35,4 +36,8 @@
     margin: 0 auto;
     filter: drop-shadow(0px 0px 10px #bec0bb);
     background-color: #EAEBED;
+  }
+ #signup-button:disabled{
+    cursor: default;
+    background-color: #c0c0c0c2;
   }
