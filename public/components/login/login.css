@@ -1,0 +1,37 @@
+.login{
+    margin-top: 10rem;
+    border-radius: 10px;
+}
+.login input[type=password], select, textarea,input[type=email] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical;
+  }
+
+.login input[type=submit] {
+    background-color: #2F5A91;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+.login input[type=submit]:hover {
+    background-color: #b7b8b9;
+  }
+  
+.login form{
+    border-radius: 10px;
+    background-color: #EAEBED;
+    padding: 20px;
+    width: 50%;
+    margin: 0 auto;
+    filter: drop-shadow(0px 0px 10px #bec0bb);
+    background-color: #EAEBED;
+  }

@@ -1,5 +1,11 @@
 body {
     display: contents;
+    font-family: SourceSansPro-regular;
+}
+
+.content{
+    height: 100%;
+    background:  linear-gradient(180deg, #FEFFFE 0%, rgba(255, 255, 255, 0) 100%), rgba(238, 240, 235, 0.2);
 }
 
 #navbar {
