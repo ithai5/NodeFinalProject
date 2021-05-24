@@ -15,7 +15,10 @@
     line-height: 18px;
 }
 #feed{
+    margin-left: 10%;
     display: flex;
+    place-content: center;
+
 }
 #offers{
     justify-content: right;
