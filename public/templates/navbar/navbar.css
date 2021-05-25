@@ -7,7 +7,7 @@ body {
 
 .content{
     height: 100%;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 10%, #E5E5E5 90%);}
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.116) 10%, #E5E5E5 90%);}
 
 #navbar {
     margin-top: 0%;
