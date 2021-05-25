@@ -5,7 +5,8 @@ import express from "express"
 import fs from "fs"
 import routerPosts from "./routes/posts.mjs";
 import routerUser from "./routes/users.mjs";
-
+import http from "http";
+import { Server } from "socket.io";
 
 const app = express();
 
@@ -27,9 +28,6 @@ app.use(routerPosts);
 
 
 
-
-
-
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
 const nav = fs.readFileSync(__dirname + "/public/templates/navbar/navbar.html", "utf-8");
@@ -38,6 +36,7 @@ const feed = fs.readFileSync(__dirname + "/public/components/feed/feed.html", "u
 const login = fs.readFileSync(__dirname + "/public/components/login/login.html", "utf-8");
 const signup = fs.readFileSync(__dirname + "/public/components/signup/signup.html", "utf-8");
 const createPost = fs.readFileSync(__dirname + "/public/components/post/createPost.html", "utf-8");
+const chat = fs.readFileSync(__dirname + "/public/components/chat/chat.html", "utf-8");
 
 app.get("/", (req, res) => {
     res.send(nav + feed + footer);
@@ -57,10 +56,27 @@ app.get("/createPost", (req, res) => {
 });
 
 
+const server = http.createServer(app);
+const io = new Server(server);
+
+io.on("connection", (socket) => {
+    console.log('a user connected');
+    socket.on('disconnect', () => {
+        console.log('user disconnected');
+        
+    });
+});
+
+app.get("/chat", (req, res) => {
+    res.send(nav + chat+ footer);
+})
+
+
+
 
 const PORT = process.env.PORT || 8080
 
-app.listen(PORT, err => {
+server.listen(PORT, err => {
     err? console.log(err) : console.log('App runs on port: ', Number(PORT))
 });
 
