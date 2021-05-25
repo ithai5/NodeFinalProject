@@ -10,6 +10,7 @@ fetch("/api/posts").then(res => res.json()).then(feed => {
 //create html with the fetched title and description of the post
 function createPostCard(post) {
   const cardDiv = createDivTag("div", "post", "");
+  cardDiv.appendChild(createDivTag("div", "sticker-type", post.ad_type))
   cardDiv.appendChild(createDivTag("h2", "post-title", post.title));
   cardDiv.appendChild(createDivTag("p", "post-description", post.description));
   cardDiv.appendChild(createDivTag("div","post-price", "price: " + post.price + " kr."));

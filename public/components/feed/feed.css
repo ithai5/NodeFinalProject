@@ -7,6 +7,13 @@
     box-sizing: border-box;
     border-radius: 10px;
     padding: 25px;
+    
+    display: flex;
+    flex-direction: column;
+    align-content: flex-start;
+    flex-wrap: nowrap;
+    align-items: baseline;
+    justify-content: center;
 }
 .post-description{
     font-style: normal;
@@ -25,4 +32,37 @@
 }
 #finds{
     justify-content: left;
+}
+
+.sticker-type{
+
+
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 23px;
+    align-self: flex-end;
+    text-align: center;
+    margin-top: 15px;
+    margin-right: -60px;
+    /* identical to box height */
+    height: 0px;
+    width: 130px;
+    transform: rotate(44deg);
+    
+
+} 
+#offers .sticker-type{
+    border-bottom: 100px solid #72E776;
+    border-left: 25px solid transparent;
+    border-right:  25px solid transparent;
+    border-width: 25px;
+}
+
+#finds .sticker-type{
+    border-bottom: 100px solid #e79772;
+    border-left: 150px solid transparent;
+    border-right: 65px solid transparent;
+    border-width: 25px;
+
 }
