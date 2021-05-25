@@ -7,14 +7,6 @@ fetch("/api/posts").then(res => res.json()).then(feed => {
   feed.forEach(post => post.ad_type === "find" ? findDiv.appendChild(createPostCard(post)) : offerDiv.appendChild(createPostCard(post)));
 });
 
-//create html with the fetched title and description of the post
-function createPostCard(post) {
-  const cardDiv = createDivTag("div", "post", "");
-  cardDiv.appendChild(createDivTag("h2", "post-title", post.title));
-  cardDiv.appendChild(createDivTag("p", "post-description", post.description));
-  cardDiv.appendChild(createDivTag("div","post-price", "price: " + post.price + " kr."));
-  return cardDiv;
-}
 
 //this general method will be used on createPostCard
 function createDivTag(tag, className, content) {
@@ -22,4 +14,13 @@ function createDivTag(tag, className, content) {
   divTag.classList.add(className);
   divTag.innerText = content;
   return divTag;
+}
+
+//create html with the fetched title and description of the post
+function createPostCard(post) {
+  const cardDiv = createDivTag("div", "post", "");
+  cardDiv.appendChild(createDivTag("h2", "post-title", post.title));
+  cardDiv.appendChild(createDivTag("p", "post-description", post.description));
+  cardDiv.appendChild(createDivTag("div","post-price", "price: " + post.price + " kr."));
+  return cardDiv;
 }

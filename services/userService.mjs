@@ -17,4 +17,11 @@ async function signUp(signUpInfo) {
     return await (promiseCreate(USERS, signUpInfo));
 }
 
-export default {getUser, signUp}
+async function getUsers(query) {
+    if (typeof(query) === "string") {
+      query = { _id : mongodb.ObjectID(query) }
+    }
+    return await (promiseGet(USERS, query));
+  };
+
+export default {getUser, signUp, getUsers}

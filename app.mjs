@@ -55,21 +55,24 @@ app.get("/createPost", (req, res) => {
     res.send(nav + createPost + footer);
 });
 
+app.get("/chat", (req, res) => {
+    res.send(nav + chat+ footer);
+})
+
+
+
+
 
 const server = http.createServer(app);
 const io = new Server(server);
 
 io.on("connection", (socket) => {
-    console.log('a user connected');
-    socket.on('disconnect', () => {
-        console.log('user disconnected');
-        
+    socket.on('private message', (anotherSocketId, msg) => {
+        socket.to(anotherSocketId).emit('private message', socket.id, msg);
     });
 });
 
-app.get("/chat", (req, res) => {
-    res.send(nav + chat+ footer);
-})
+
 
 
 

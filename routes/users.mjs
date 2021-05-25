@@ -55,4 +55,12 @@ routerUser.post("/api/signup", async (req, res) => {
     }
 });
 
+
+routerUser.get("/api/users", (req, res) => {
+    userService.getUsers().then(result => {
+        res.send(result);
+    })
+})
+
 export default routerUser;
+
