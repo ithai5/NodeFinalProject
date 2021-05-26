@@ -7,12 +7,16 @@ import routerPosts from "./routes/posts.mjs";
 import routerUser from "./routes/users.mjs";
 import http from "http";
 import { Server } from "socket.io";
+import session from "express-session";
+import MongoStore from "connect-mongo";
+import { createSession } from "./services/sessionService.mjs";
 
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(express.static("public"));
+app.use(createSession());
 app.use(routerUser);
 app.use(routerPosts);
 
