@@ -5,19 +5,33 @@ import { verifySession } from "../services/sessionService.mjs";
 const routerUser = express.Router()
 
 routerUser.post("/api/login", async (req, res) => {
-    const loginInfo = {... req.body};
-    if (await userService.getUser(loginInfo)) {
-        //the cookie is provided only if login succeed
-        res.send({ message: "login success" });
-    }
-    else {
-        res.send({ message: "login failed" });
-    }
+    //const loginInfo = {... req.body};
+    userService.userValidation({... req.body})
+        .then(serviceResponse => {
+            console.log(serviceResponse[0]);
+            if(serviceResponse){
+                //can store any other data from the db to the seasion
+                req.session.userId = serviceResponse[0]._id
+                res.send({ message: "login success" })
+            }
+            else{
+                res.send({ message: "login failed" });
+            }
+            
+        })
+    // const userLogged = userService.getUser(loginInfo)
     
-    //condition needs to be connected to the database
-        //Send back a cookie and expiration,
-        //Something identifying the logged in user (id?)
-    
+    // if (await userLogged ) {
+    //     userLogged.then(res=> console.log(res))
+    //     //add the email of the user for the seasen
+    //     //the cookie is provided only if login succeed
+    //     // req.session.username = await userLogged[0]._id;
+    //     //should we update the user in our db with the session _id so we can find it afterwards for future use?
+    //     res.send({ message: "login success" });
+    // }
+    // else {
+    //     res.send({ message: "login failed" });
+    // }
 });
 
 routerUser.post("/api/signup", async (req, res) => {
@@ -47,6 +61,7 @@ routerUser.get("/api/users", (req, res) => {
 
 routerUser.get("/api/verify", (req, res) => {
     verifySession(req.sessionID).then(result => {
+        
         res.send(result);
     });
 });
