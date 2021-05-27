@@ -1,6 +1,5 @@
 const findDiv = document.getElementById("finds");
 const offerDiv = document.getElementById("offers")
-console.log(document.cookie);
 
 //fetch posts info from api (db)
 fetch("/api/posts").then(res => res.json()).then(feed => {

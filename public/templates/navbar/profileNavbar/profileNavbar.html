@@ -1,8 +1,8 @@
-    
+
 </head>
 <body>
+    
     <div id="navbar">
-
         <a class="home selected" href="/"><img src="./assets/pictures/H2H_logo.png" width="100" height="auto"></a>
         <a href="">Provided services</a>
         <a href="">Requested services</a>
@@ -11,11 +11,13 @@
             <input type="text" name="Search" placeholder="Search...">
             <input type="submit" value="Search">
         </div>
-        <a id="profile" onclick="">Profile</a>
+        <a id="profile" onclick="openSidenav()">Profile</a>
     </div>
-    <div class="sidenav">
+    <div class="sidenav" id="profileNavbar">
         <a>profile</a>
-        <a href="/logout">logout</a>
         <a>my offers</a>
+        <a href="/logout">logout</a>
     </div>
+    <script src="./templates/navbar/profileNavbar/profileNavbar.js"></script>
     <div class="content">
+    
