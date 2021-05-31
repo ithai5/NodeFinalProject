@@ -99,20 +99,18 @@ const io = new Server(server);
 
 io.on("connection", (socket) => {
     console.log("user connected")
-    
-    /*socket.on("sendMessage", data => {
-        socket.broadcast.emit("messageReceives", data)
-        socket.emit("messageSent", data)
-    })*/
 
     socket.on("sendMessage", (room, message) => {
-        socket.to(room.id).emit(message);
+        //console.log("room: ", room, " message: ", message);
+        //socket.to(room._id).emit("messageReceived", message);
+        socket.to("60b4b0b813faa3e5f0c571aa").emit("messageReceived", message);
+        socket.emit("messageSent", message);
     });
 
     socket.on('joinRoom', room => {
-        console.log("Connected to room object: ", room);
-        //loadPreviousChat()
-        //socket.emit(sendChatToView)
+        //console.log("Connected to room object: ", room);
+        //socket.join(room._id);
+        socket.join("60b4b0b813faa3e5f0c571aa");
     });
     
 

@@ -1,0 +1,20 @@
+#chat-box{
+    width: 60%;
+    background-color: whitesmoke;
+}
+.sent-message{
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #2F5A91;
+    margin-left: 40%;
+
+}
+.message{
+    margin: 10px;
+}
+.received-message{
+    padding: 5px;
+    margin-right: 40%;
+    border-radius: 5px;
+    background-color: #77B6EA;
+}
