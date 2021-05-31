@@ -1,22 +1,13 @@
-<ul id="messages"></ul>
-    <form id="form" action="">
-      <input id="input" autocomplete="off" /><button>Send</button>
-    </form>
-<div id="usersChat"></div>   
+<h1>Chat</h1>
+<div id="chat-box">
+</div>
+<br>
+<input type="text" id="message-content">
+<button onclick="sendMessage()"> Send</button>
+
+<button onclick="joinRoom('60b4a213fac2fea99701041a')">Create Connection</button>
+<script src="/socket.io/socket.io.js"></script>
+<script src="./components/chat/chat.js"></script>
 
 
 <script src="/socket.io/socket.io.js"></script>
-<script>
-  var socket = io();
-
-  var form = document.getElementById('form');
-  var input = document.getElementById('input');
-
-  form.addEventListener('submit', function(e) {
-    e.preventDefault();
-    if (input.value) {
-      socket.emit('chat message', input.value);
-      input.value = '';
-    }
-  });
-</script>

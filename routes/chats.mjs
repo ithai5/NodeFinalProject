@@ -11,6 +11,7 @@ routerChats.get("/api/chat/:id", (req, res) => {
     chatService.getRoom(senderId, receieverId).then( result => {
         res.send(result);
     });
+    
 });
 
 export default routerChats;

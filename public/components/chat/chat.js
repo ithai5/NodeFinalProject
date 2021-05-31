@@ -1,8 +1,37 @@
-fetch("/api/posts").then(res => res.json()).then(feed => {
-  //for every post we create the html structure
-  feed.forEach(post => post.ad_type === "find" ? findDiv.appendChild(createPostCard(post)) : offerDiv.appendChild(createPostCard(post)));
-});
+const socket = io();
 
-/*fetch('api/users').then(res => res.json()).then(list => {
-  list.forEach(user => user.)
-})*/
+function sendMessage () {
+  const message = document.getElementById('message-content').value;
+  socket.emit('sendMessage', {message, message});
+}
+
+function joinRoom(id) {
+  fetch("/api/chat/" + id).then(result => result.json()).then(result => {
+    console.log(result);
+    socket.emit('joinRoom', result);
+  });
+}
+
+/*
+function showNewMessage (content, isReceive) { //create new message
+  let mainDiv = document.createElement('div')
+  mainDiv.classList.add("message")
+  console.log(mainDiv)
+  let div = document.createElement('div')
+  isReceive? div.classList.add("received-message") : div.classList.add("sent-message")
+  mainDiv.append(div)
+  div.append(content)
+  chatBox.appendChild(mainDiv)
+  //chatBox.appendChild(div)
+}
+*/
+socket.on('messageReceived', message =>{
+  console.log("messageReceived!: there is a new message for you! ", message)
+  showNewMessage(message.message, true)
+})
+
+socket.on('messageSent', message => {
+  console.log("MessageSent! : your message was received at the server", message)
+  showNewMessage(message.message, false)
+})
+

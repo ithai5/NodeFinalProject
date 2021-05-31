@@ -91,14 +91,23 @@ const server = http.createServer(app);
 const io = new Server(server);
 
 io.on("connection", (socket) => {
+    console.log("user connected")
     
-    socket.on('join-room', (sender, reciever) => {
+    /*socket.on("sendMessage", data => {
+        socket.broadcast.emit("messageReceives", data)
+        socket.emit("messageSent", data)
+    })*/
 
+    socket.on("sendMessage", (room, message) => {
+        socket.to(room.id).emit(message);
+    });
+
+    socket.on('joinRoom', room => {
+        console.log("Connected to room object: ", room);
+        //loadPreviousChat()
+        //socket.emit(sendChatToView)
     });
     
-    socket.on('private message', (anotherSocketId, msg) => {
-        socket.to(anotherSocketId).emit('private message', socket.id, msg);
-    });
 
 
 });
