@@ -3,11 +3,12 @@ import { dirname } from "path"
 import { fileURLToPath } from "url";
 import express from "express"
 import fs from "fs"
+import http from "http";
+import { createSession } from "./services/sessionService.mjs";
+import { Server } from "socket.io";
 import routerPosts from "./routes/posts.mjs";
 import routerUser from "./routes/users.mjs";
-import http from "http";
-import { Server } from "socket.io";
-import { createSession } from "./services/sessionService.mjs";
+import routerChats from "./routes/chats.mjs";
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use(express.static("public"));
 app.use(createSession());
 app.use(routerUser);
 app.use(routerPosts);
+app.use(routerChats);
 
 function title(titleName) {
     return `<title> ${titleName} </title>`
@@ -89,9 +91,16 @@ const server = http.createServer(app);
 const io = new Server(server);
 
 io.on("connection", (socket) => {
+    
+    socket.on('join-room', (sender, reciever) => {
+
+    });
+    
     socket.on('private message', (anotherSocketId, msg) => {
         socket.to(anotherSocketId).emit('private message', socket.id, msg);
     });
+
+
 });
 
 
