@@ -42,7 +42,8 @@ app.get("/*", (req, res, next) => {
     else{
         nav = fs.readFileSync(__dirname + "/public/templates/navbar/navbar.html", "utf-8");
     }
-    next()
+    next();
+ 
 })
 
 app.get("/", (req, res) => {
@@ -51,10 +52,16 @@ app.get("/", (req, res) => {
 
 
 app.get("/login", (req, res)  => {
+    if (req.session.userId){
+        res.redirect("/")
+    }
     res.send(cssTamplate + title("H2H - Login") + nav + login + footer);
 });
 
 app.get("/signup", (req, res) => {
+    if (req.session.userId){
+        res.redirect("/")
+    }
     res.send(cssTamplate + title("H2H - Signup") + nav + signup + footer);
 });
 
