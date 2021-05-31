@@ -11,7 +11,9 @@
   }
   
   .sidenav a {
+    margin: 10px;
     z-index: 1;
+    font-weight: bold;
     padding: 8px 8px 8px 32px;
     text-decoration: none;
     font-size: 25px;

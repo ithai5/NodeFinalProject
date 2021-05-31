@@ -49,17 +49,27 @@ body {
 }
 
 #search {
-    display: inline-block;
-    margin-left: 3rem;
-    margin-top: 0.7rem;
+    margin-left: 60px;
+    display: inline-flex;
+    /* margin-left: 3rem;
+    margin-top: 0.7rem; */
 }
-#search input{
+
+#search input[type=submit]{
+    margin-top: 5px;
+    margin-left: 10px;
+    height:  40px;
+    border-radius: 5px;
+}
+
+#search input[type=text]{
     background-color: #EEF0EB;
     padding-left: 10px;
     padding-right: 10px;
     padding-top: 3px;
     padding-bottom: 3px;
     border-radius: 4px;
+    height: 40px;
 }
 
 .home {

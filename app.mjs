@@ -58,11 +58,16 @@ app.get("/signup", (req, res) => {
 
 app.get("/logout", (req, res) => {
     req.session.destroy();
-    res.redirect("/")
+    res.redirect("/");
 })
 
 app.get("/createPost", (req, res) => {
-    res.send(cssTamplate + title("H2H - New Post") + nav + createPost + footer);
+    if(req.session.userId){
+        res.send(cssTamplate + title("H2H - New Post") + nav + createPost + footer);
+    }
+    else{
+        res.redirect("/login")
+    }
 });
 
 app.get("/chat", (req, res) => {

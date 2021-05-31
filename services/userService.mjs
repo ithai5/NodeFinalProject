@@ -10,8 +10,17 @@ async function userValidation(query){
 }
 
 async function signUp(signUpInfo) {
-    signUpInfo.password = await passwordManagement.passwordToHash(signUpInfo.password);
-    return await (promiseCreate(USERS, signUpInfo));
+  let isCreated = false
+    await promiseGet(USERS, {email: signUpInfo.email}).then(async users => {
+       if (users.length === 0){
+        signUpInfo.password = await passwordManagement.passwordToHash(signUpInfo.password);
+        await promiseCreate(USERS, signUpInfo)
+        isCreated = true
+      }
+    });
+    return isCreated
+    // signUpInfo.password = await passwordManagement.passwordToHash(signUpInfo.password);
+    // return await (promiseCreate(USERS, signUpInfo));
 }
 
 async function getUsers(query) {
