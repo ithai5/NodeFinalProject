@@ -12,26 +12,30 @@ routerPosts.get("/api/posts", (req, res) => {
 });
 
 routerPosts.get("/api/posts/:id", (req, res) => {
-    postService.getPosts(req.params.id).then(respose => res.send({"message" : respose}));
+    postService.getPosts(req.params.id).then(result => res.send({"message" : result}));
     
 })
 
 routerPosts.post("/api/post", (req, res) => {
-    postService.createPost(req.body).then(result => {
-        res.send(result);
+    const post = {
+     ...req.body,
+        user: req.session.userId,
+    };
+    postService.createPost(post).then(() => {
+        res.redirect("/");
     });
 });
 
 routerPosts.patch("/api/post", (req, res) => {
-    postService.updatePost(req.query.id, req.body).then(result => {
-        res.send(result);
+    postService.updatePost(req.query.id, req.body).then(() => {
+        res.redirect("/");
     });
 });
 
 routerPosts.delete("/api/post", (req, res) => {
     //Either req.query or req.params
-    postService.deletePost(req.query.id).then(result => {
-        res.send(result);
+    postService.deletePost(req.query.id).then(() => {
+        res.redirect("/");
     });
 });
 
