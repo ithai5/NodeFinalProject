@@ -31,6 +31,15 @@ async function createRoom(senderId, receiverId) {
     return await promiseCreate(CHATS, query).then(() => {
         return getRoom(senderId, receiverId);
     });
-} 
+}
 
-export default {getRoom, createRoom};
+async function saveMessage(roomId, messageContent, senderId) {
+    const messageToSave = {
+        user: senderId,
+        message: messageContent,
+        timeStamp: new Date(),
+    };
+    return await promiseUpdate(CHATS, roomId, {chatLog: messageToSave}, true);    
+}
+
+export default {getRoom, createRoom, saveMessage};

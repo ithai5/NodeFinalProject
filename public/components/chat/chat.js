@@ -7,6 +7,7 @@ let chatBox = document.getElementById("chat-box");
 function sendMessage () {
   const message = document.getElementById('message-content').value;
   socket.emit('sendMessage', room, message);
+  $.post(("/api/chat/" + room._id), {message});
 }
 
 function joinRoom(id) {

@@ -21,23 +21,6 @@ const loadDB = async () => {
 
 //PROMISES
 
-//Promise for get all from collection()
-// const promiseGetAll = async (collection) => {
-//     //Load an instance of mongoDB
-//     const db = await loadDB();
-  
-//     return new Promise((resolve, reject) => {
-//       //Empty query: Return all posts.
-//       db.collection(collection).find({}).toArray((error, result) => {
-//         if (error) {
-//           reject(new Error(error));
-//         } else {
-//           resolve(result);
-//         }
-//       });
-//     });
-//   }
-  
   const promiseGet = async (collection, query) => {
     const db = await loadDB();
     if (query === undefined) query = {} //checks if the query was passed as an arguemnt
@@ -68,11 +51,25 @@ const loadDB = async () => {
   }
   
   //Promise for updatePost()
-  const promiseUpdate = async (collection, id, updates) => {
+  const promiseUpdate = async (collection, id, updates, isSubCollection) => {
     const db = await loadDB();
-  
+    
+    let query;
+
     return new Promise((resolve, reject) => {
-      db.collection(collection).updateOne( { _id : mongodb.ObjectID(id) }, { $set : updates }, (error, result) => {
+      //Change the modifier to either serve updates for a collection
+      //or an array in a collection
+      if (isSubCollection) {
+        query = {
+          $push: updates
+        };
+      } else {
+        query = {
+          $set: updates
+        };
+      }
+      
+      db.collection(collection).updateOne( { _id : mongodb.ObjectID(id) }, query, (error, result) => {
         if (error) {
           reject(new Error(error));
         } else {
@@ -97,5 +94,5 @@ const loadDB = async () => {
     });
   }
   
-  
+
   export { promiseGet, promiseCreate, promiseUpdate, promiseDelete }
