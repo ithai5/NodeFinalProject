@@ -43,7 +43,6 @@ routerUsers.get("/api/users", (req, res) => {
 
 routerUsers.get("/api/users/:id", (req, res) => {
     userService.getUsers(req.params.id).then(result => res.send(result));
-    
 })
 
 export default routerUsers;

@@ -33,6 +33,7 @@ const login = fs.readFileSync(__dirname + "/public/components/login/login.html",
 const signup = fs.readFileSync(__dirname + "/public/components/signup/signup.html", "utf-8");
 const createPost = fs.readFileSync(__dirname + "/public/components/post/createPost.html", "utf-8");
 const chat = fs.readFileSync(__dirname + "/public/components/chat/chat.html", "utf-8");
+const viewPost = fs.readFileSync(__dirname + "/public/components/post/viewPost.html","utf-8")
 
 app.get("/*", (req, res, next) => {
     if (req.session.userId) {
@@ -43,13 +44,11 @@ app.get("/*", (req, res, next) => {
         nav = fs.readFileSync(__dirname + "/public/templates/navbar/navbar.html", "utf-8");
     }
     next();
- 
 })
 
 app.get("/", (req, res) => {
     res.send(cssTamplate + title("H2H") +  nav + feed + footer);
 });
-
 
 app.get("/login", (req, res)  => {
     if (req.session.userId){
@@ -70,6 +69,15 @@ app.get("/logout", (req, res) => {
     res.redirect("/");
 })
 
+app.get("/posts/:id", (req, res)=> {
+    if(req.session.userId){
+        res.send(cssTamplate + title("H2H + Post") + nav + viewPost + footer);
+    }
+    else{
+        res.redirect("/login")
+    }
+});
+
 app.get("/createPost", (req, res) => {
     if(req.session.userId){
         res.send(cssTamplate + title("H2H - New Post") + nav + createPost + footer);
@@ -79,8 +87,13 @@ app.get("/createPost", (req, res) => {
     }
 });
 
-app.get("/chat", (req, res) => {
-    res.send(cssTamplate + nav + chat+ footer);
+app.get("/chats/:id", (req, res) => {
+    if(req.session.userId){
+        res.send(cssTamplate + nav + chat+ footer);
+    }
+    else{
+        res.redirect("/login")
+    }
 })
 
 //get for all the other pages

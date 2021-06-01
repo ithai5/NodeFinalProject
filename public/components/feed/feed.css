@@ -7,7 +7,8 @@
     box-sizing: border-box;
     border-radius: 10px;
     padding: 25px;
-    
+    text-decoration: none;
+    color: inherit;
     display: flex;
     flex-direction: column;
     align-content: flex-start;
@@ -35,8 +36,6 @@
 }
 
 .sticker-type{
-
-
     font-style: normal;
     font-weight: bold;
     font-size: 16px;

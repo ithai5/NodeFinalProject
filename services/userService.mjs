@@ -1,5 +1,6 @@
 import { promiseGet, promiseCreate } from "./dbService.mjs";
 import passwordManagement from "../passwordManagement.mjs"
+import mongodb from "mongodb";
 
 const USERS = "users"; 
 async function userValidation(query){ 
@@ -25,7 +26,7 @@ async function signUp(signUpInfo) {
 
 async function getUsers(query) {
     if (typeof(query) === "string") {
-      query = { _id : mongodb.ObjectID(query) }
+      query = { _id : mongodb.ObjectID(query+"") }
     }
     return await (promiseGet(USERS, query));
   };

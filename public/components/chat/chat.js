@@ -1,19 +1,22 @@
 const socket = io();
 let room;
-let receiverId;
+let receiverId = window.location.pathname.split('/chats/')[1];
+joinRoom()
 
-let chatBox = document.getElementById("chat-box");
+let chatBox = document.getElementById("chat-messages");
 
 function sendMessage () {
   const message = document.getElementById('message-content').value;
+  if(message.length === 0 ){
+    return;
+  }
   socket.emit('sendMessage', room, message);
   $.post(("/api/chat/" + room._id), {message});
 }
 
-function joinRoom(id) {
-  fetch("/api/chat/" + id).then(result => result.json()).then(result => {
+function joinRoom() {
+  fetch("/api/chat/" + receiverId).then(result => result.json()).then(result => {
     room = result;
-    receiverId = id;
     socket.emit('joinRoom', room);
     showChatLog();
   });
