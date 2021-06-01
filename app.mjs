@@ -7,7 +7,7 @@ import http from "http";
 import { createSession } from "./services/sessionService.mjs";
 import { Server } from "socket.io";
 import routerPosts from "./routes/posts.mjs";
-import routerUser from "./routes/users.mjs";
+import routerUsers from "./routes/users.mjs";
 import routerChats from "./routes/chats.mjs";
 
 const app = express();
@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(express.static("public"));
 app.use(createSession());
-app.use(routerUser);
+app.use(routerUsers);
 app.use(routerPosts);
 app.use(routerChats);
 
@@ -105,7 +105,7 @@ io.on("connection", (socket) => {
         //socket.to(room._id).emit("messageReceived", message);
         socket.to("60b4b0b813faa3e5f0c571aa").emit("messageReceived", message);
         socket.emit("messageSent", message);
-        
+
     });
 
     socket.on('joinRoom', room => {

@@ -1,7 +1,5 @@
 import session from "express-session";
 import MongoStore from "connect-mongo";
-import mongodb from "mongodb";
-import { promiseGet } from "./dbService.mjs";
 
 const SESSIONS = "sessions";
 
@@ -15,15 +13,5 @@ function createSession() {
     });
 }
 
-async function getSession(sessionID) {
-    const query = { _id : sessionID };
-    return await promiseGet(SESSIONS, query);
-}
 
-async function verifySession(sessionID) {
-    return await getSession(sessionID).then((result) => {
-        return result.length === 1;
-    });
-}
-
-export { createSession, getSession, verifySession };
+export { createSession };

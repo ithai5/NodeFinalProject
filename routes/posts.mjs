@@ -12,9 +12,8 @@ routerPosts.get("/api/posts", (req, res) => {
 });
 
 routerPosts.get("/api/posts/:id", (req, res) => {
-    postService.getPosts(req.params.id).then(result => res.send({"message" : result}));
-    
-})
+    postService.getPosts(req.params.id).then(result => res.send(result)); 
+});
 
 routerPosts.post("/api/post", (req, res) => {
     const post = {

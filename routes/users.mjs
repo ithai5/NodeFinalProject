@@ -1,10 +1,9 @@
 import express from 'express';
 import userService from "../services/userService.mjs";
-import { verifySession } from "../services/sessionService.mjs";
 
-const routerUser = express.Router()
+const routerUsers = express.Router()
 
-routerUser.post("/api/login", async (req, res) => {
+routerUsers.post("/api/login", async (req, res) => {
     //const loginInfo = {... req.body};
     userService.userValidation({... req.body})
         .then(serviceResponse => {
@@ -20,7 +19,7 @@ routerUser.post("/api/login", async (req, res) => {
         })
 });
 
-routerUser.post("/api/signup", async (req, res) => {
+routerUsers.post("/api/signup", async (req, res) => {
     const signUpInfo = {... req.body};
     const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     let checks = [
@@ -38,18 +37,14 @@ routerUser.post("/api/signup", async (req, res) => {
     }
 });
 
-routerUser.get("/api/users", (req, res) => {
-    userService.getUsers().then(result => {
-        res.send(result);
-    });
+routerUsers.get("/api/users", (req, res) => {
+    userService.getUsers().then(result => res.send(result));
 })
 
-routerUser.get("/api/verify", (req, res) => {
-    verifySession(req.sessionID).then(result => {
-        
-        res.send(result);
-    });
-});
+routerUsers.get("/api/users/:id", (req, res) => {
+    userService.getUsers(req.params.id).then(result => res.send(result));
+    
+})
 
-export default routerUser;
+export default routerUsers;
 

@@ -6,7 +6,7 @@ import mongodb from "mongodb";
 const POSTS = "posts";
 //METHODS
 
-//View posts
+//View or search for posts
 async function getPosts(query) {
   if (typeof(query) === "string") {
     query = { _id : mongodb.ObjectID(query) }
