@@ -11,22 +11,25 @@ async function getPosts(query) {
   if (typeof(query) === "string") {
     query = { _id : mongodb.ObjectID(query) }
   }
-  return await (promiseGet(POSTS, query));
+  return await promiseGet(POSTS, query);
 };
 
+async function searchPosts(query){
+  return await promiseGet(POSTS, query);
+}
 //Create one post
 async function createPost(newPost) {
-  return await (promiseCreate(POSTS, newPost));
+  return await promiseCreate(POSTS, newPost);
 }
 
 //Update one post
 async function updatePost(id, updates) {
-  return await (promiseUpdate(POSTS, id, updates, false));
+  return await promiseUpdate(POSTS, id, updates, false);
 }
 
 //Delete one post
 async function deletePost(id) {
-  return await (promiseDelete(POSTS, id));
+  return await promiseDelete(POSTS, id);
 }
 
 

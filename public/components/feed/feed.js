@@ -1,10 +1,33 @@
 const findDiv = document.getElementById("finds");
-const offerDiv = document.getElementById("offers")
+const offerDiv = document.getElementById("offers");
+let pageTitle = window.location.pathname.split("/");
+console.log(window.location.search);
+console.log(pageTitle);
+let endPoint;
+switch (pageTitle[1]){
+    case "search":
+        endPoint = "/api/posts" + window.location.search
+        break;
+    case "provided":
+        endPoint = "/api/posts?type=offer"
+        break;
+    case "requested":
+        endPoint = "/api/posts?type=find"
+        break;
+    default: 
+        endPoint = "/api/posts";
+        break;
+}
+
+
 
 //fetch posts info from api (db)
-fetch("/api/posts").then(res => res.json()).then(feed => {
+fetch(endPoint).then(res => res.json()).then(feed => {
   //for every post we create the html structure
-  feed.forEach(post => post.ad_type === "find" ? findDiv.appendChild(createPostCard(post)) : offerDiv.appendChild(createPostCard(post)));
+  if(feed.length === 0){
+    alert("Sorry, but we couldn't find what you have been looking for Pupsi :-(")
+  }
+  feed.forEach(post => post.type === "find" ? findDiv.appendChild(createPostCard(post)) : offerDiv.appendChild(createPostCard(post)));
 });
 
 
@@ -19,7 +42,7 @@ function createDivTag(tag, className, content) {
 //create html with the fetched title and description of the post
 function createPostCard(post) {
   const cardDiv = createDivTag("a", "post", "");
-  cardDiv.appendChild(createDivTag("div", "sticker-type", post.ad_type))
+  cardDiv.appendChild(createDivTag("div", "sticker-type", post.type))
   cardDiv.appendChild(createDivTag("h2", "post-title", post.title));
   cardDiv.appendChild(createDivTag("p", "post-description", post.description));
   cardDiv.appendChild(createDivTag("div","post-price", "price: " + post.price + " kr."));

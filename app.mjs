@@ -50,6 +50,22 @@ app.get("/", (req, res) => {
     res.send(cssTamplate + title("H2H") +  nav + feed + footer);
 });
 
+app.get("/requested", (req, res) => {
+    res.send(cssTamplate + title("H2H") +  nav + feed + footer);
+});
+
+app.get("/provided", (req, res) => {
+    res.send(cssTamplate + title("H2H") +  nav + feed + footer);
+});
+
+
+app.get("/search", (req, res) => {
+    res.send(cssTamplate + title("H2H") +  nav + feed + footer);
+});
+
+
+
+
 app.get("/login", (req, res)  => {
     if (req.session.userId){
         res.redirect("/")

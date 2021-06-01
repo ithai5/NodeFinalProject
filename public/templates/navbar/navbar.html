@@ -4,12 +4,13 @@
     <div id="navbar">
 
         <a class="home selected" href="/"><img src="./assets/pictures/H2H_logo.png" width="100" height="auto"></a>
-        <a href="">Provided services</a>
-        <a href="">Requested services</a>
+        <a href="/provided">Provided services</a>
+        <a href="/requested">Requested services</a>
         <div id="search">
-            <input type="text" name="Search" placeholder="Search...">
-            <input type="submit" value="Search">
+            <input id="search-input" type="text" name="search" placeholder="Search...">
+            <input type="submit" value="Search" onclick="search()">
         </div>
         <a href="/login" id="profile">Log-in</a>
     </div>
     <div class="content">
+    <script src="../templates/navbar/search.js"></script>

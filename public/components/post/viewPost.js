@@ -16,7 +16,7 @@ fetch('/api/posts/' + postId).then(res => res.json()).then(post => {
         post = post[0]
             postViewElement.appendChild(createDivTag("h1", "post-title", post.title));    
             postViewElement.appendChild(createDivTag("div", "post-description", post.description));
-            postViewElement.appendChild(createDivTag("div", "post-ad-type", post.ad_type));
+            postViewElement.appendChild(createDivTag("div", "post-ad-type", post.type));
             postViewElement.appendChild(createDivTag("div", "post-price", post.price));
         }
     }

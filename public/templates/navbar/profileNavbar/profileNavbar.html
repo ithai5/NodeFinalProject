@@ -4,12 +4,12 @@
     
     <div id="navbar">
         <a class="home selected" href="/"><img src="../assets/pictures/H2H_logo.png" width="100" height="auto"></a>
-        <a href="">Provided services</a>
-        <a href="">Requested services</a>
+        <a href="/provided">Provided services</a>
+        <a href="/requested">Requested services</a>
         <a href="/createPost">Post an ad</a>
         <div id="search">
-            <input type="text" name="Search" placeholder="Search...">
-            <input type="submit" value="Search">
+            <input  id="search-input" type="text" name="search" placeholder="Search...">
+            <input type="submit" value="Search" onclick="search()">
         </div>
         <a id="profile" onclick="openSidenav()">Profile</a>
     </div>
@@ -19,5 +19,6 @@
         <a href="/logout">logout</a>
     </div>
     <script src="../templates/navbar/profileNavbar/profileNavbar.js"></script>
+    <script src="../templates/navbar/search.js"></script>
     <div class="content">
     
