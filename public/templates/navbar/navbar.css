@@ -6,7 +6,8 @@ body {
 .content{
     margin-top: 70px;
     height: 100%;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.116) 10%, #E5E5E5 90%);}
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.116) 10%, #E5E5E5 90%);
+}
 
 #navbar {
     z-index: 1;
@@ -29,7 +30,6 @@ body {
     color: #B4B8AB;
     font-size: 24px;
     font-weight: bolder;
-
     text-decoration: none;
 }
 
@@ -51,8 +51,6 @@ body {
 #search {
     margin-left: 60px;
     display: inline-flex;
-    /* margin-left: 3rem;
-    margin-top: 0.7rem; */
 }
 
 #search input[type=submit]{

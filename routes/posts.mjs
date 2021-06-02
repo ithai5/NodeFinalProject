@@ -8,10 +8,10 @@ const routerPosts = express.Router()
 routerPosts.get("/api/posts", (req, res) => {
     let query;
     if (req.query.post) {
-        query = {$text: {$search: req.query.post}}
+        query = {$text: {$search: req.query.post}};
     }
     else if (req.query.type) {
-        query = {type: req.query.type}
+        query = {type: req.query.type};
     }
     console.log({$text: {$search: req.query.post}});
     postService.getPosts(query).then(result => {

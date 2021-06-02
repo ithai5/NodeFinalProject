@@ -16,21 +16,24 @@
     align-items: baseline;
     justify-content: center;
 }
+
 .post-description{
     font-style: normal;
     font-weight: 300;
     font-size: 14px;
     line-height: 18px;
 }
+
 #feed{
     margin-left: 10%;
     display: flex;
     place-content: center;
-
 }
+
 #offers{
     justify-content: right;
 }
+
 #finds{
     justify-content: left;
 }

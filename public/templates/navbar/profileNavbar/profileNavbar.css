@@ -8,9 +8,9 @@
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 120px;
-  }
+}
   
-  .sidenav a {
+.sidenav a {
     margin: 10px;
     z-index: 1;
     font-weight: bold;
@@ -21,17 +21,17 @@
     display: block; 
     cursor: pointer;
     transition: 0.3s;
-  }
+}
   
-  .sidenav a:hover {
+.sidenav a:hover {
     color: #F4F9E9;
-  }
+}
   
-  .sidenav .closebtn {
+.sidenav .closebtn {
     position: absolute;
     top: 0;
     right: 25px;
     font-size: 36px;
     margin-left: 50px;
-  }
+}
   

@@ -1,18 +1,18 @@
 const findDiv = document.getElementById("finds");
 const offerDiv = document.getElementById("offers");
-let pageTitle = window.location.pathname.split("/");
-console.log(window.location.search);
-console.log(pageTitle);
+
+
+let pageTitle = window.location.pathname.split("/"); //get the path from the url
 let endPoint;
-switch (pageTitle[1]){
+switch (pageTitle[1]) { //check the url to know which list of post need to be requested from the db
     case "search":
-        endPoint = "/api/posts" + window.location.search
+        endPoint = "/api/posts" + window.location.search;
         break;
     case "provided":
-        endPoint = "/api/posts?type=offer"
+        endPoint = "/api/posts?type=offer";
         break;
     case "requested":
-        endPoint = "/api/posts?type=find"
+        endPoint = "/api/posts?type=find";
         break;
     default: 
         endPoint = "/api/posts";
@@ -24,14 +24,15 @@ switch (pageTitle[1]){
 //fetch posts info from api (db)
 fetch(endPoint).then(res => res.json()).then(feed => {
   //for every post we create the html structure
-  if(feed.length === 0){
-    alert("Sorry, but we couldn't find what you have been looking for Pupsi :-(")
+  if (feed.length === 0) {
+    alert("Sorry, but we couldn't find what you have been looking for Pupsi :-(");
   }
+  //load the posts from the fetch request
   feed.forEach(post => post.type === "find" ? findDiv.appendChild(createPostCard(post)) : offerDiv.appendChild(createPostCard(post)));
 });
 
 
-//this general method will be used on createPostCard
+//this general method will be used on createPostCard, takes tag name("div/h1/...") a the call we would like to give to the content itself
 function createDivTag(tag, className, content) {
   const divTag = document.createElement(tag);
   divTag.classList.add(className);
@@ -46,6 +47,6 @@ function createPostCard(post) {
   cardDiv.appendChild(createDivTag("h2", "post-title", post.title));
   cardDiv.appendChild(createDivTag("p", "post-description", post.description));
   cardDiv.appendChild(createDivTag("div","post-price", "price: " + post.price + " kr."));
-  cardDiv.href = "/posts/" + post._id
+  cardDiv.href = "/posts/" + post._id;
   return cardDiv;
 }

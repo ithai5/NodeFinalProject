@@ -7,10 +7,10 @@ routerUsers.post("/api/login", async (req, res) => {
     //const loginInfo = {... req.body};
     userService.userValidation({... req.body})
         .then(serviceResponse => {
-            if(serviceResponse){
+            if (serviceResponse) {
                 //can store any other data from the db to the seasion
-                req.session.userId = serviceResponse[0]._id
-                res.redirect("/")
+                req.session.userId = serviceResponse[0]._id;
+                res.redirect("/");
             }
             else{
                 res.send({ message: "login failed" });
@@ -26,7 +26,7 @@ routerUsers.post("/api/signup", async (req, res) => {
         signUpInfo.firstName.length>1, signUpInfo.lastName.length>1, 
         emailRegex.test(signUpInfo.email), signUpInfo.password.length > 7
     ]
-    if(!checks.includes(false)){
+    if (!checks.includes(false)) {
         userService.signUp(signUpInfo).then(result => {
             if (result){
                 res.send({message: "sign-up successfuly"});

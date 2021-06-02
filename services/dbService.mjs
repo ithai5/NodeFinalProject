@@ -2,7 +2,7 @@ import mongodb from "mongodb";
 
 const MongoClient = mongodb.MongoClient;
 const url = process.env.DB_CONNECTION;
-const dbName = "NodeExam"
+const dbName = "NodeExam";
 
 let db;
 
@@ -38,7 +38,6 @@ const loadDB = async () => {
   //Promise for createPost()
   const promiseCreate = async (collection, query) => {
     const db = await loadDB();
-  
     return new Promise((resolve, reject) => {
       db.collection(collection).insertOne(query, (error, result) => {
         if (error) {

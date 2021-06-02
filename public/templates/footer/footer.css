@@ -7,8 +7,8 @@
     color: #F4F9E9;
     text-align: center;
     font-family: SourceSansPro-light;
-  }
+}
 
-  body{
-    background: linear-gradient(180deg, #FEFFFE 0%, rgba(255, 255, 255, 0) 100%), rgba(238, 240, 235, 0.2);;
-  }
+body{
+  background: linear-gradient(180deg, #FEFFFE 0%, rgba(255, 255, 255, 0) 100%), rgba(238, 240, 235, 0.2);
+}

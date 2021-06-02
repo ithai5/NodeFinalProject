@@ -5,9 +5,9 @@ joinRoom()
 
 let chatBox = document.getElementById("chat-messages");
 
-function sendMessage () {
+function sendMessage() {
   const message = document.getElementById('message-content').value;
-  if(message.length === 0 ){
+  if (message.length === 0 ) {
     return;
   }
   socket.emit('sendMessage', room, message);
@@ -22,31 +22,29 @@ function joinRoom() {
   });
 }
 
-function showChatLog() {
+function showChatLog() { //load messages for chatlog
   const chatLog = room.chatLog;
   chatLog.forEach(element => {
-    showNewMessage(element.message, (element.user === receiverId))
+    showNewMessage(element.message, (element.user === receiverId) );
   });
 }
 
 
-function showNewMessage (content, isReceived) { //create new message
-  let mainDiv = document.createElement('div')
-  mainDiv.classList.add("message")
-  let div = document.createElement('div')
-  isReceived? div.classList.add("received-message") : div.classList.add("sent-message")
-  mainDiv.append(div)
-  div.append(content)
-  chatBox.appendChild(mainDiv)
+function showNewMessage(content, isReceived) { //create new message
+  let mainDiv = document.createElement('div');
+  mainDiv.classList.add("message");
+  let div = document.createElement('div');
+  isReceived? div.classList.add("received-message") : div.classList.add("sent-message");
+  mainDiv.append(div);
+  div.append(content);
+  chatBox.appendChild(mainDiv);
 }
 
-socket.on('messageReceived', message =>{
-  console.log("messageReceived!: there is a new message for you! ", message)
-  showNewMessage(message, true)
+socket.on('messageReceived', message =>{ //get trigered by the socket .emit
+  showNewMessage(message, true);
 })
 
-socket.on('messageSent', message => {
-  console.log("MessageSent! : your message was received at the server", message)
-  showNewMessage(message, false)
+socket.on('messageSent', message => { //get trigered by the socket .emit
+  showNewMessage(message, false);
 })
 
