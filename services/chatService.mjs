@@ -9,7 +9,7 @@ const CHATS = "chats";
 async function getRoom(senderId, receiverId) {
     const query = { users: { $all:[senderId, receiverId] } };
 
-    return await (promiseGet(CHATS, query)).then((result) => {
+    return await promiseGet(CHATS, query).then( result => {
         //Check if the room exists, and create a new one if it doesn't
         if (result.length === 0) {
             return createRoom(senderId, receiverId);
@@ -20,6 +20,15 @@ async function getRoom(senderId, receiverId) {
         }
     });
 };
+
+async function getRooms(userId) {
+    const query = { users : userId };
+    return await promiseGet(CHATS, query).then( result => {
+        console.log(result);
+        return result
+    });
+
+ }
 
 async function createRoom(senderId, receiverId) {
     const query = {
@@ -42,4 +51,4 @@ async function saveMessage(roomId, messageContent, senderId) {
     return await promiseUpdate(CHATS, roomId, {chatLog: messageToSave}, true);    
 }
 
-export default {getRoom, createRoom, saveMessage};
+export default {getRoom, createRoom, saveMessage, getRooms};

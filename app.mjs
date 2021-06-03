@@ -24,8 +24,8 @@ function title(titleName) {
     return `<title> ${titleName} </title>`
 }
 
-const __dirname = dirname(fileURLToPath(import.meta.url))
-const cssTamplate = fs.readFileSync(__dirname + "/public/templates/cssTamplates/cssTamplate.html", "utf-8")
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const cssTamplate = fs.readFileSync(__dirname + "/public/templates/cssTamplates/cssTamplate.html", "utf-8");
 let nav = fs.readFileSync(__dirname + "/public/templates/navbar/navbar.html", "utf-8");
 const footer = fs.readFileSync(__dirname + "/public/templates/footer/footer.html", "utf-8");
 const feed = fs.readFileSync(__dirname + "/public/components/feed/feed.html", "utf-8");
@@ -34,7 +34,7 @@ const signup = fs.readFileSync(__dirname + "/public/components/signup/signup.htm
 const createPost = fs.readFileSync(__dirname + "/public/components/post/createPost.html", "utf-8");
 const chat = fs.readFileSync(__dirname + "/public/components/chat/chat.html", "utf-8");
 const viewPost = fs.readFileSync(__dirname + "/public/components/post/viewPost.html","utf-8");
-
+const chatList =fs.readFileSync(__dirname + "/public/components/chatList/chatList.html","utf-8");
 app.get("/*", (req, res, next) => {
     if (req.session.userId) {
         console.log(req.session.userId);
@@ -103,6 +103,15 @@ app.get("/createPost", (req, res) => {
     }
 });
 
+app.get("/chats" , (req, res) => {
+    if(req.session.userId){
+        res.send(cssTamplate + title("H2H + Messages") + nav + chatList + footer);
+    }
+    else{
+        res.redirect("/login");
+    }    
+});
+
 app.get("/chats/:id", (req, res) => {
     if(req.session.userId){
         res.send(cssTamplate + nav + chat+ footer);
@@ -127,7 +136,7 @@ const server = http.createServer(app);
 const io = new Server(server);
 
 io.on("connection", (socket) => {
-    console.log("user connected")
+    console.log("user connected");
 
     socket.on("sendMessage", (room, message) => {
         //console.log("room: ", room, " message: ", message);

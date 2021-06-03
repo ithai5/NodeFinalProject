@@ -11,11 +11,11 @@ function sendMessage() {
     return;
   }
   socket.emit('sendMessage', room, message);
-  $.post(("/api/chat/" + room._id), {message});
+  $.post(("/api/chats/" + room._id), {message});
 }
 
 function joinRoom() {
-  fetch("/api/chat/" + receiverId).then(result => result.json()).then(result => {
+  fetch("/api/chats/" + receiverId).then(result => result.json()).then(result => {
     room = result;
     socket.emit('joinRoom', room);
     showChatLog();

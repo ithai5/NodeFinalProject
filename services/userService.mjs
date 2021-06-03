@@ -13,15 +13,13 @@ async function userValidation(query){
 async function signUp(signUpInfo) {
   let isCreated = false
     await promiseGet(USERS, {email: signUpInfo.email}).then(async users => {
-       if (users.length === 0){
+       if (users.length === 0){ //checks if there is no user with this mail in the db
         signUpInfo.password = await passwordManagement.passwordToHash(signUpInfo.password);
         await promiseCreate(USERS, signUpInfo)
         isCreated = true
       }
     });
     return isCreated
-    // signUpInfo.password = await passwordManagement.passwordToHash(signUpInfo.password);
-    // return await (promiseCreate(USERS, signUpInfo));
 }
 
 async function getUsers(query) {
