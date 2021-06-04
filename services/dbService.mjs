@@ -50,24 +50,28 @@ const loadDB = async () => {
   }
   
   //Promise for updatePost()
-  const promiseUpdate = async (collection, id, updates, isSubCollection) => {
+  const promiseUpdate = async (collection, id, updates, operator) => {
     const db = await loadDB();
-    
+    console.log("promiseUpdate: ", collection, id, updates, operator);
     let query;
-
     return new Promise((resolve, reject) => {
-      //Change the modifier to either serve updates for a collection
-      //or an array in a collection
-      if (isSubCollection) {
-        query = {
-          $push: updates
-        };
-      } else {
-        query = {
-          $set: updates
-        };
+      switch (operator){
+        case "push": //add element to array in subcollection
+          query = {
+            $push: updates
+          };
+          break;
+        case "pull": //remove element from subcollection
+          query = {
+            $pull: updates
+          };
+          break;
+        default: //update element 
+          query = {
+            $set: updates
+          };
+          break;
       }
-      
       db.collection(collection).updateOne( { _id : mongodb.ObjectID(id) }, query, (error, result) => {
         if (error) {
           reject(new Error(error));

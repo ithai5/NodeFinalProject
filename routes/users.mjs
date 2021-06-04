@@ -48,13 +48,18 @@ routerUsers.get("/api/users/:id", (req, res) => {
     } else {
         userService.getUsers(req.params.id).then(result => res.send(result));
     }
+});
+
+routerUsers.put("/api/users/notifications", (req, res) => {
+    userService.deleteNotification(req.body.roomId, req.body.type, req.session.userId).
+        then(result => res.send(result));
 })
 
 
 routerUsers.post("/api/users/notifications", (req, res) => {
     console.log("body tings: ", req.body);
     userService.saveNotification(req.body.roomId, req.body.type, req.body.receiverId).then(result => res.send(result));
-})
+});
 
 //Redundant
 routerUsers.get("/api/currentUser", (req, res) => {

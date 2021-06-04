@@ -47,7 +47,7 @@ async function saveMessage(roomId, messageContent, senderId) {
         message: messageContent,
         timeStamp: new Date(),
     };
-    return await promiseUpdate(CHATS, roomId, {chatLog: messageToSave}, true);    
+    return await promiseUpdate(CHATS, roomId, {chatLog: messageToSave}, "push");    
 }
 
 export default {getRoom, createRoom, saveMessage, getRooms};

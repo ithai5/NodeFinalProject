@@ -36,7 +36,15 @@ async function saveNotification(roomId, type, userId) {
       room: roomId,
       type: type
     };
-  return await promiseUpdate(USERS, userId, {notifications: newNotification}, true);    
+  return await promiseUpdate(USERS, userId, {notifications: newNotification}, "push");    
 }
 
-export default {userValidation, signUp, getUsers, saveNotification}
+async function deleteNotification(roomId, type, userId) {
+  const notificaionToDelete = {
+    room: roomId,
+    type: type
+  };
+  return promiseUpdate(USERS, userId, {notifications: notificaionToDelete}, "pull");
+}
+
+export default {userValidation, signUp, getUsers, saveNotification, deleteNotification}

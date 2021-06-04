@@ -24,7 +24,7 @@ async function createPost(newPost) {
 
 //Update one post
 async function updatePost(id, updates) {
-  return await promiseUpdate(POSTS, id, updates, false);
+  return await promiseUpdate(POSTS, id, updates, "set");
 }
 
 //Delete one post

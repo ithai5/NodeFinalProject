@@ -35,3 +35,28 @@
     margin-left: 50px;
 }
 
+.has-notification {
+
+    animation-duration: 1200ms;
+    animation-name: blink;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    /* -webkit-animation:blink 1200ms infinite; */
+}
+@keyframes blink {
+    from {
+        color:#B4B8AB;
+    }
+    to {
+        color:#f7f7f7;
+    }
+}
+@-webkit-keyframes blink {
+    from {
+        color:#B4B8AB;
+    }
+    to {
+        color:#f7f7f7;
+    }
+}
+

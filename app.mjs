@@ -154,9 +154,9 @@ io.on("connection", (socket) => {
     });
     
     //Event should be called something else
-    socket.on("triggerNotifications", userId => {
-        console.log("triggerNotif: ", userId);
-        socket.join(userId.userId);
+    socket.on("triggerNotifications", user => {
+        console.log("triggerNotif: ", user);
+        socket.join(user._Id);
     });
 
 });

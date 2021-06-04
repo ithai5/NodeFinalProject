@@ -22,6 +22,13 @@ function sendMessage() {
 function joinRoom() {
   fetch("/api/chats/" + receiverId).then(result => result.json()).then(result => {
     room = result;
+    //delete notification from sessionUser
+    $.ajax({url: "/api/users/notifications", 
+            type: "PUT",
+            data: {
+              roomId: room._id,
+              type: "chats",
+            }});
     socket.emit('joinRoom', room);
     showChatLog();
   });
