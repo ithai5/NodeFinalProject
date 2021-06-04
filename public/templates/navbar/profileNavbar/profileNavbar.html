@@ -1,4 +1,4 @@
-
+<script src="/socket.io/socket.io.js"></script>
 </head>
 <body>
     
@@ -7,7 +7,6 @@
         <a href="/provided">Provided services</a>
         <a href="/requested">Requested services</a>
         <a href="/createPost">Post an ad</a>
-        <a href="/chats"> Messages</a>
         <div id="search">
             <input  id="search-input" type="text" name="search" placeholder="Search...">
             <input type="submit" value="Search" onclick="search()">
@@ -16,10 +15,12 @@
     </div>
     <div class="sidenav" id="profileNavbar">
         <a>profile</a>
+        <a id="chats" href="/chats"> Messages</a>
         <a>my offers</a>
         <a href="/logout">logout</a>
     </div>
     <script src="../templates/navbar/profileNavbar/profileNavbar.js"></script>
     <script src="../templates/navbar/search.js"></script>
+    
     <div class="content">
     

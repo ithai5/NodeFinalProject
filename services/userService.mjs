@@ -1,4 +1,4 @@
-import { promiseGet, promiseCreate } from "./dbService.mjs";
+import { promiseGet, promiseCreate, promiseUpdate } from "./dbService.mjs";
 import passwordManagement from "../passwordManagement.mjs"
 import mongodb from "mongodb";
 
@@ -15,6 +15,8 @@ async function signUp(signUpInfo) {
     await promiseGet(USERS, {email: signUpInfo.email}).then(async users => {
        if (users.length === 0){ //checks if there is no user with this mail in the db
         signUpInfo.password = await passwordManagement.passwordToHash(signUpInfo.password);
+        signUpInfo.notifications = [];
+
         await promiseCreate(USERS, signUpInfo)
         isCreated = true
       }
@@ -27,6 +29,14 @@ async function getUsers(query) {
       query = { _id : mongodb.ObjectID(query+"") }
     }
     return await (promiseGet(USERS, query));
-  };
+};
 
-export default {userValidation, signUp, getUsers}
+async function saveNotification(roomId, type, userId) {
+  const newNotification = {
+      room: roomId,
+      type: type
+    };
+  return await promiseUpdate(USERS, userId, {notifications: newNotification}, true);    
+}
+
+export default {userValidation, signUp, getUsers, saveNotification}

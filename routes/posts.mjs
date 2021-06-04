@@ -13,7 +13,6 @@ routerPosts.get("/api/posts", (req, res) => {
     else if (req.query.type) {
         query = {type: req.query.type};
     }
-    console.log({$text: {$search: req.query.post}});
     postService.getPosts(query).then(result => {
         res.send(result);
     });

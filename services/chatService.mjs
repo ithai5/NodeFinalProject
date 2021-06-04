@@ -24,7 +24,6 @@ async function getRoom(senderId, receiverId) {
 async function getRooms(userId) {
     const query = { users : userId };
     return await promiseGet(CHATS, query).then( result => {
-        console.log(result);
         return result
     });
 

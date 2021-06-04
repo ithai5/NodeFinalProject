@@ -1,4 +1,3 @@
-const socket = io();
 let room;
 let receiverId = window.location.pathname.split('/chats/')[1];
 joinRoom()
@@ -10,8 +9,14 @@ function sendMessage() {
   if (message.length === 0 ) {
     return;
   }
-  socket.emit('sendMessage', room, message);
+  socket.emit('sendMessage', room, message, receiverId);
   $.post(("/api/chats/" + room._id), {message});
+  $.post("/api/users/notifications", {
+    roomId: room._id,
+    type: "chats",
+    receiverId: receiverId});
+  //Clear input field when message is sent,
+  //Allow message to be sent by hitting enter key
 }
 
 function joinRoom() {

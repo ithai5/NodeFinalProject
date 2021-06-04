@@ -37,7 +37,6 @@ const viewPost = fs.readFileSync(__dirname + "/public/components/post/viewPost.h
 const chatList =fs.readFileSync(__dirname + "/public/components/chatList/chatList.html","utf-8");
 app.get("/*", (req, res, next) => {
     if (req.session.userId) {
-        console.log(req.session.userId);
         nav = fs.readFileSync(__dirname + "/public/templates/navbar/profileNavbar/profileNavbar.html", "utf-8");
     }
     else{
@@ -137,22 +136,28 @@ const io = new Server(server);
 
 io.on("connection", (socket) => {
     console.log("user connected");
-
-    socket.on("sendMessage", (room, message) => {
-        //console.log("room: ", room, " message: ", message);
-        //socket.to(room._id).emit("messageReceived", message);
-        socket.to("60b4b0b813faa3e5f0c571aa").emit("messageReceived", message);
+    //Maybe don't send the entire room, since it sends the entire chatlog as well
+    socket.on("sendMessage", (room, message, receiverId) => {
+        //console.log("room: ", room, " message: ", message, " receieverId: ", receiverId);    
+        //Send a message to the correct chatroom
+        socket.to(room._id).emit("messageReceived", message);
+        //Inform user that their message has been sent
         socket.emit("messageSent", message);
 
+        //Send the roomId to notify the recipient user
+        socket.to(receiverId).emit("newNotification", room._id);
     });
 
     socket.on('joinRoom', room => {
         //console.log("Connected to room object: ", room);
-        //socket.join(room._id);
-        socket.join("60b4b0b813faa3e5f0c571aa");
+        socket.join(room._id);
     });
     
-
+    //Event should be called something else
+    socket.on("triggerNotifications", userId => {
+        console.log("triggerNotif: ", userId);
+        socket.join(userId.userId);
+    });
 
 });
 
