@@ -6,10 +6,10 @@ import mongodb from "mongodb";
 const CHATS = "chats";
 //METHODS
 
-async function getRoom(senderId, receiverId) {
+function getRoom(senderId, receiverId) {
     const query = { users: { $all:[senderId, receiverId] } };
 
-    return await promiseGet(CHATS, query).then( result => {
+    return promiseGet(CHATS, query).then( result => {
         //Check if the room exists, and create a new one if it doesn't
         if (result.length === 0) {
             return createRoom(senderId, receiverId);
@@ -21,33 +21,34 @@ async function getRoom(senderId, receiverId) {
     });
 };
 
-async function getRooms(userId) {
+
+function getRooms(userId) {
     const query = { users : userId };
-    return await promiseGet(CHATS, query).then( result => {
+    return promiseGet(CHATS, query).then( result => {
         return result
     });
 
  }
 
-async function createRoom(senderId, receiverId) {
+function createRoom(senderId, receiverId) {
     const query = {
         chatLog: [],
         users: [senderId, receiverId],
     };
     
     //Create room, and then return the created room
-    return await promiseCreate(CHATS, query).then(() => {
+    return promiseCreate(CHATS, query).then(() => {
         return getRoom(senderId, receiverId);
     });
 }
 
-async function saveMessage(roomId, messageContent, senderId) {
+function saveMessage(roomId, messageContent, senderId) {
     const messageToSave = {
         user: senderId,
         message: messageContent,
         timeStamp: new Date(),
     };
-    return await promiseUpdate(CHATS, roomId, {chatLog: messageToSave}, "push");    
+    return promiseUpdate(CHATS, roomId, {chatLog: messageToSave}, "push");    
 }
 
 export default {getRoom, createRoom, saveMessage, getRooms};

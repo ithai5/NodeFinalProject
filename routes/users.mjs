@@ -37,16 +37,25 @@ routerUsers.post("/api/signup", async (req, res) => {
     }
 });
 
+routerUsers.all("/api/users/*", (req, res, next) => {
+    if(!req.session.userId) { 
+        res.send({message: "unauthorised call"})
+    }
+    else{
+        next();
+    }
+    
+    
+})
 routerUsers.get("/api/users", (req, res) => {
-    userService.getUsers().then(result => res.send(result));
+    userService.getUsers().then(result => res.send({users : result}));
 })
 
 routerUsers.get("/api/users/:id", (req, res) => {
-    
     if (req.params.id === "profile") {
-        userService.getUsers(req.session.userId).then(result => res.send(result));
+        userService.getUsers(req.session.userId).then(result => res.send({user: result[0]}));
     } else {
-        userService.getUsers(req.params.id).then(result => res.send(result));
+        userService.getUsers(req.params.id).then(result => res.send({user: result[0]}));
     }
 });
 
@@ -57,13 +66,7 @@ routerUsers.put("/api/users/notifications", (req, res) => {
 
 
 routerUsers.post("/api/users/notifications", (req, res) => {
-    console.log("body tings: ", req.body);
     userService.saveNotification(req.body.roomId, req.body.type, req.body.receiverId).then(result => res.send(result));
-});
-
-//Redundant
-routerUsers.get("/api/currentUser", (req, res) => {
-    res.send({userId: req.session.userId});
 });
 
 export default routerUsers;

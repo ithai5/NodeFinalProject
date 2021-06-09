@@ -7,29 +7,29 @@ const POSTS = "posts";
 //METHODS
 
 //View or search for posts
-async function getPosts(query) {
+function getPosts(query) {
   if (typeof(query) === "string") {
     query = { _id : mongodb.ObjectID(query) }
   }
-  return await promiseGet(POSTS, query);
+  return promiseGet(POSTS, query);
 };
 
-async function searchPosts(query){
-  return await promiseGet(POSTS, query);
+function searchPosts(query){
+  return promiseGet(POSTS, query);
 }
 //Create one post
-async function createPost(newPost) {
-  return await promiseCreate(POSTS, newPost);
+function createPost(newPost) {
+  return promiseCreate(POSTS, newPost);
 }
 
 //Update one post
-async function updatePost(id, updates) {
-  return await promiseUpdate(POSTS, id, updates, "set");
+function updatePost(id, updates) {
+  return promiseUpdate(POSTS, id, updates, "set");
 }
 
 //Delete one post
-async function deletePost(id) {
-  return await promiseDelete(POSTS, id);
+function deletePost(id) {
+  return promiseDelete(POSTS, id);
 }
 
 

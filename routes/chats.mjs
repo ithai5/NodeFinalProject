@@ -2,9 +2,19 @@ import express from 'express'
 import chatServiceMjs from '../services/chatService.mjs';
 
 const chatService = chatServiceMjs;
-const routerChats = express.Router()
+const routerChats = express.Router();
+
+routerChats.all("/api/chats/*", (req, res, next) => {
+    if (!req.session.userId) { 
+        res.send({message: "unauthorised call"})
+    }
+    else {
+        next()
+    }
+})
 
 routerChats.get("/api/chats/:recieverId", (req, res) => {
+
     const senderId = req.session.userId;
     const receieverId = req.params.recieverId;
     chatService.getRoom(senderId, receieverId).then( result => {
@@ -15,14 +25,14 @@ routerChats.get("/api/chats/:recieverId", (req, res) => {
 //Post instead of patch, because we're storing new info
 routerChats.post("/api/chats/:roomId", (req, res) => {
     chatService.saveMessage(req.params.roomId, req.body.message, req.session.userId).then(result => {
-            res.send(result);
-        });
+        res.send(result);
+    });
 });
 
 routerChats.get("/api/chats", (req, res) => {
     chatService.getRooms(req.session.userId).then(result => {
         res.send({chats: result, userId : req.session.userId})
-    });
+        });
 });
 
 export default routerChats;

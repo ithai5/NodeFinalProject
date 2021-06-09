@@ -1,8 +1,8 @@
 const findDiv = document.getElementById("finds");
 const offerDiv = document.getElementById("offers");
 
-
 let pageTitle = window.location.pathname.split("/"); //get the path from the url
+
 let endPoint;
 switch (pageTitle[1]) { //check the url to know which list of post need to be requested from the db
     case "search":
@@ -14,15 +14,19 @@ switch (pageTitle[1]) { //check the url to know which list of post need to be re
     case "requested":
         endPoint = "/api/posts?type=find";
         break;
+    case "myoffers": 
+        endPoint = "/api/posts?user=user";
+        break;    
     default: 
         endPoint = "/api/posts";
         break;
 }
 
 
-
 //fetch posts info from api (db)
 fetch(endPoint).then(res => res.json()).then(feed => {
+  feed = feed.posts
+  
   //for every post we create the html structure
   if (feed.length === 0) {
     alert("Sorry, but we couldn't find what you have been looking for Pupsi :-(");

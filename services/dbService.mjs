@@ -21,7 +21,7 @@ const loadDB = async () => {
 
 //PROMISES
 
-  const promiseGet = async (collection, query) => {
+const promiseGet = async (collection, query) => {
     const db = await loadDB();
     if (query === undefined) query = {} //checks if the query was passed as an arguemnt
     return new Promise((resolve, reject) => {
@@ -52,7 +52,6 @@ const loadDB = async () => {
   //Promise for updatePost()
   const promiseUpdate = async (collection, id, updates, operator) => {
     const db = await loadDB();
-    console.log("promiseUpdate: ", collection, id, updates, operator);
     let query;
     return new Promise((resolve, reject) => {
       switch (operator){

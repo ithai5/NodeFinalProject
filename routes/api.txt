@@ -1,0 +1,57 @@
+CHATS: 
+    get
+        /api/chats - {
+                        chats : [ all rooms that the user is part of ]
+                        userId : logged in user in the session    
+                    }
+
+        /api/chats/:recieverId- {
+                        _id : room _id  
+                        chatlog : [all the messages inside this room]
+                        users: [members of the room]
+        }
+
+    post
+        /api/chats/:roomId - 
+                        add a message to the chat log of roomId
+
+
+POST: 
+    get
+        /api/posts - {
+                        posts: [array of all posts]
+                    }      
+        /api/posts/:id - {
+                        post: {post info}
+                    }
+
+    post 
+        /api/posts - gets post object
+
+    patch 
+        /api/post - gets post and updateit
+
+    delete 
+        /api/post - get id and delete the post
+
+
+USERS: 
+    get:
+        /api/users- {users: [all users]}
+
+        /api/users/:id- {user}
+
+    post:
+        /api/login - 
+            onseccess will redirect
+            on failed { message: "login failed"}   
+    
+        /api/signup- {message}
+
+        /api/users/notifications add new notification for the user
+        
+    put: 
+        /api/users/notifications -
+            remove notification from a user notification array
+
+    

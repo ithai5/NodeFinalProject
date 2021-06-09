@@ -11,21 +11,19 @@ function openSidenav() {
 function triggerNotifications() {
     fetch("/api/users/profile").then(result => result.json())
         .then(user => {
-            if(user[0].notifications.length > 0 ){
+            user = user.user
+            if(user.notifications.length > 0 ){
                 document.getElementById("profile").classList.add("has-notification");
-                user[0].notifications.forEach(notification => {
-                    
+                user.notifications.forEach(notification => {
                     document.getElementById(notification.type).classList.add("has-notification");
                 });
-                window.history.pushState(user[0].notifications, "notification")
+                window.history.pushState(user.notifications, "notification")
             }
-            console.log(user[0]);
-            socket.emit('triggerNotifications', user[0]);
+            socket.emit('triggerNotifications', user);
         });
 }
 
 socket.on("newNotification", roomId => {
-    console.log("roomId: ", roomId);
     //When you get a new notification
     //The chat href in the UI should light up
     document.getElementById("chats").classList.add("has-notification");

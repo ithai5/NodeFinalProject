@@ -17,7 +17,6 @@ MongoClient.connect(url, {useUnifiedTopology: true}, (error, client) => {
             throw new Error(error);
         }
 
-        console.log(result);
         client.close();
     });
 });

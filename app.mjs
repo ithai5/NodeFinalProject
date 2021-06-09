@@ -56,6 +56,14 @@ app.get("/requested", (req, res) => {
 app.get("/provided", (req, res) => {
     res.send(cssTamplate + title("H2H") +  nav + feed + footer);
 });
+app.get("/myoffers", (req, res) => {
+    if(req.session.userId){
+        res.send(cssTamplate + title("H2H- My Offers") +  nav + feed + footer);
+    }
+    else{
+        res.redirect("/login")
+    }
+})
 
 
 app.get("/search", (req, res) => {
@@ -135,10 +143,8 @@ const server = http.createServer(app);
 const io = new Server(server);
 
 io.on("connection", (socket) => {
-    console.log("user connected");
     //Maybe don't send the entire room, since it sends the entire chatlog as well
     socket.on("sendMessage", (room, message, receiverId) => {
-        //console.log("room: ", room, " message: ", message, " receieverId: ", receiverId);    
         //Send a message to the correct chatroom
         socket.to(room._id).emit("messageReceived", message);
         //Inform user that their message has been sent
@@ -155,7 +161,6 @@ io.on("connection", (socket) => {
     
     //Event should be called something else
     socket.on("triggerNotifications", user => {
-        console.log("triggerNotif: ", user);
         socket.join(user._Id);
     });
 
