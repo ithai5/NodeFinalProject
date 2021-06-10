@@ -34,7 +34,8 @@ const signup = fs.readFileSync(__dirname + "/public/components/signup/signup.htm
 const createPost = fs.readFileSync(__dirname + "/public/components/post/createPost.html", "utf-8");
 const chat = fs.readFileSync(__dirname + "/public/components/chat/chat.html", "utf-8");
 const viewPost = fs.readFileSync(__dirname + "/public/components/post/viewPost.html","utf-8");
-const chatList =fs.readFileSync(__dirname + "/public/components/chatList/chatList.html","utf-8");
+const chatList = fs.readFileSync(__dirname + "/public/components/chatList/chatList.html","utf-8");
+const pageNotFound = fs.readFileSync(__dirname + "/public/components/pageNotFound/pageNotFound.html","utf-8");
 app.get("/*", (req, res, next) => {
     if (req.session.userId) {
         nav = fs.readFileSync(__dirname + "/public/templates/navbar/profileNavbar/profileNavbar.html", "utf-8");
@@ -130,7 +131,7 @@ app.get("/chats/:id", (req, res) => {
 
 //get for all the other pages
 app.get("/*", (req,res) => {
-    res.send(cssTamplate + title("Page not found")+ nav + "<h1> That page does not exist 404</h1>" + footer);
+    res.send(cssTamplate + title("H2H- Page not found")+ nav + pageNotFound + footer);
 })
 
 
