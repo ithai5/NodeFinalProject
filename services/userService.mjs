@@ -6,6 +6,9 @@ const USERS = "users";
 async function userValidation(query){ 
     //send db query to get user hashed password in return
     const user = await promiseGet(USERS,  { email : query.email });
+    if  (user.length === 0){
+      return false;
+    }
     //compare the query password with the hashed db password
     return passwordManagement.compareHash(query.password, user[0].password) ? user : false;
 }

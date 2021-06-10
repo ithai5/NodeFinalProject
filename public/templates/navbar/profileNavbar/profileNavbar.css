@@ -36,8 +36,7 @@
 }
 
 .has-notification {
-
-    animation-duration: 1200ms;
+    animation-duration: 800ms;
     animation-name: blink;
     animation-iteration-count: infinite;
     animation-direction: alternate;
@@ -45,10 +44,10 @@
 }
 @keyframes blink {
     from {
-        color:#B4B8AB;
+        color:#64665d;
     }
     to {
-        color:#f7f7f7;
+        color:#fffbfb;
     }
 }
 @-webkit-keyframes blink {
@@ -56,7 +55,7 @@
         color:#B4B8AB;
     }
     to {
-        color:#f7f7f7;
+        color:#ffffff;
     }
 }
 

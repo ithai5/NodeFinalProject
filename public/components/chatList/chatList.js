@@ -9,7 +9,9 @@ fetch("/api/users/profile").then(result => result.json()).then(currentUser => {
                 user = user.user
                 const recipient = createDivTag("a", "recipient", user.firstName + " " + user.lastName); //creating div element and a tag with the link to the chat page
                 if (roomsNotifications.includes(chat._id)){
-                    recipient.classList.add("has-notification"); //if notificaion and room has the same id 
+                    //recipient.classList.add("has-notification"); //if notificaion and room has the same id 
+                    const notification =  createDivTag("span", "notification-mark", "")
+                    recipient.appendChild(notification)
                 }
                 recipient.href = "/chats/" + recipientId;
                 chatList.appendChild(recipient);

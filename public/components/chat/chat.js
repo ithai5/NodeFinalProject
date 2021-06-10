@@ -17,6 +17,7 @@ function sendMessage() {
     receiverId: receiverId});
   //Clear input field when message is sent,
   //Allow message to be sent by hitting enter key
+  document.getElementById('message-content').value = "";
 }
 
 function joinRoom() {

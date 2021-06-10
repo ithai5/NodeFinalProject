@@ -20,6 +20,7 @@ routerUsers.post("/api/login", async (req, res) => {
 });
 
 routerUsers.post("/api/signup", async (req, res) => {
+    
     const signUpInfo = {... req.body};
     const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     let checks = [
@@ -39,7 +40,7 @@ routerUsers.post("/api/signup", async (req, res) => {
 
 routerUsers.all("/api/users/*", (req, res, next) => {
     if(!req.session.userId) { 
-        res.send({message: "unauthorised call"})
+        res.status(201).send({message: "unauthorised call"})
     }
     else{
         next();

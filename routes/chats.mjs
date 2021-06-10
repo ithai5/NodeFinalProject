@@ -5,11 +5,12 @@ const chatService = chatServiceMjs;
 const routerChats = express.Router();
 
 routerChats.all("/api/chats/*", (req, res, next) => {
+
     if (!req.session.userId) { 
-        res.send({message: "unauthorised call"})
+        res.status(201).send({message: "unauthorised call"});
     }
     else {
-        next()
+        next();
     }
 })
 
