@@ -23,7 +23,7 @@ routerPosts.get("/api/posts", (req, res) => {
 
 routerPosts.all("/api/post/*", (req, res ,next) => {
     if(!req.session.userId) { 
-        res.status(201).send({message: "unauthorised call"});
+        res.sendStatus(401)
     }
     else{
         next();

@@ -7,7 +7,7 @@ const routerChats = express.Router();
 routerChats.all("/api/chats/*", (req, res, next) => {
 
     if (!req.session.userId) { 
-        res.status(201).send({message: "unauthorised call"});
+        res.sendStatus(401)
     }
     else {
         next();
