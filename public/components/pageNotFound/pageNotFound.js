@@ -1,4 +1,3 @@
-console.log("hello world");
 alert("You will be redirect to our home page in any moment")
 setTimeout(()=> {
     window.location  = "/"

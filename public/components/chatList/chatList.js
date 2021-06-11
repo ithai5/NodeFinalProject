@@ -14,7 +14,10 @@ fetch("/api/users/profile").then(result => result.json()).then(currentUser => {
                     recipient.appendChild(notification)
                 }
                 recipient.href = "/chats/" + recipientId;
-                chatList.appendChild(recipient);
+                const chatDiv = createDivTag("div", "chat", "")
+                
+                chatDiv.appendChild(recipient)
+                chatList.appendChild(chatDiv);
             });
         });
     });

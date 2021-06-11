@@ -136,10 +136,6 @@ app.get("/*", (req,res) => {
 
 
 
-
-
-
-
 const server = http.createServer(app);
 const io = new Server(server);
 
@@ -156,7 +152,6 @@ io.on("connection", (socket) => {
     });
 
     socket.on('joinRoom', room => {
-        //console.log("Connected to room object: ", room);
         socket.join(room._id);
     });
     
