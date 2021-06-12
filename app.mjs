@@ -30,6 +30,8 @@ let nav = fs.readFileSync(__dirname + "/public/templates/navbar/navbar.html", "u
 const footer = fs.readFileSync(__dirname + "/public/templates/footer/footer.html", "utf-8");
 const feed = fs.readFileSync(__dirname + "/public/components/feed/feed.html", "utf-8");
 const login = fs.readFileSync(__dirname + "/public/components/login/login.html", "utf-8");
+const confirmLogin  = fs.readFileSync(__dirname + "/public/components/login/confirmLogin.html", "utf-8");
+
 const signup = fs.readFileSync(__dirname + "/public/components/signup/signup.html", "utf-8");
 const createPost = fs.readFileSync(__dirname + "/public/components/post/createPost.html", "utf-8");
 const chat = fs.readFileSync(__dirname + "/public/components/chat/chat.html", "utf-8");
@@ -81,6 +83,11 @@ app.get("/login", (req, res)  => {
     res.send(cssTamplate + title("H2H - Login") + nav + login + footer);
 });
 
+app.get("/confirm/:code", (req,res) => {
+    res.send(cssTamplate + title("H2H - Confirmation") + nav + confirmLogin + footer);
+});
+
+
 app.get("/signup", (req, res) => {
     if (req.session.userId){
         res.redirect("/")
@@ -95,7 +102,7 @@ app.get("/logout", (req, res) => {
 
 app.get("/posts/:id", (req, res)=> {
     if(req.session.userId){
-        res.send(cssTamplate + title("H2H + Post") + nav + viewPost + footer);
+        res.send(cssTamplate + title("H2H - Post") + nav + viewPost + footer);
     }
     else{
         res.redirect("/login");
@@ -113,7 +120,7 @@ app.get("/createPost", (req, res) => {
 
 app.get("/chats" , (req, res) => {
     if(req.session.userId){
-        res.send(cssTamplate + title("H2H + Messages") + nav + chatList + footer);
+        res.send(cssTamplate + title("H2H - Messages") + nav + chatList + footer);
     }
     else{
         res.redirect("/login");
@@ -131,7 +138,7 @@ app.get("/chats/:id", (req, res) => {
 
 //get for all the other pages
 app.get("/*", (req,res) => {
-    res.send(cssTamplate + title("H2H- Page not found")+ nav + pageNotFound + footer);
+    res.send(cssTamplate + title("H2H - Page not found")+ nav + pageNotFound + footer);
 })
 
 

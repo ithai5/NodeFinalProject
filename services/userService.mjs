@@ -49,4 +49,8 @@ function deleteNotification(roomId, type, userId) {
   return promiseUpdate(USERS, userId, {notifications: notificaionToDelete}, "pull");
 }
 
-export default {userValidation, signUp, getUsers, saveNotification, deleteNotification}
+function approveEmailAddress(userId) {
+  return promiseUpdate(USERS, userId, {status: "approve"}, "set")
+}
+
+export default {userValidation, signUp, getUsers, saveNotification, deleteNotification, approveEmailAddress}
