@@ -4,8 +4,7 @@ import chatServiceMjs from '../services/chatService.mjs';
 const chatService = chatServiceMjs;
 const routerChats = express.Router();
 
-routerChats.all("/api/chats/*", (req, res, next) => {
-
+routerChats.all("/api/chats/*", (req, res, next) => { //you need to be a login user and have a store cookie to use this api
     if (!req.session.userId) { 
         res.sendStatus(401)
     }
@@ -15,7 +14,6 @@ routerChats.all("/api/chats/*", (req, res, next) => {
 })
 
 routerChats.get("/api/chats/:recieverId", (req, res) => {
-
     const senderId = req.session.userId;
     const receieverId = req.params.recieverId;
     chatService.getRoom(senderId, receieverId).then( result => {

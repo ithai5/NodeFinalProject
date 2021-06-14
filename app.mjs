@@ -21,7 +21,7 @@ app.use(routerPosts);
 app.use(routerChats);
 
 function title(titleName) {
-    return `<title> ${titleName} </title>`
+    return `<title> ${titleName} </title>`;
 }
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -30,8 +30,7 @@ let nav = fs.readFileSync(__dirname + "/public/templates/navbar/navbar.html", "u
 const footer = fs.readFileSync(__dirname + "/public/templates/footer/footer.html", "utf-8");
 const feed = fs.readFileSync(__dirname + "/public/components/feed/feed.html", "utf-8");
 const login = fs.readFileSync(__dirname + "/public/components/login/login.html", "utf-8");
-const confirmLogin  = fs.readFileSync(__dirname + "/public/components/login/confirmLogin.html", "utf-8");
-
+const confirmLogin = fs.readFileSync(__dirname + "/public/components/login/confirmLogin.html", "utf-8");
 const signup = fs.readFileSync(__dirname + "/public/components/signup/signup.html", "utf-8");
 const createPost = fs.readFileSync(__dirname + "/public/components/post/createPost.html", "utf-8");
 const chat = fs.readFileSync(__dirname + "/public/components/chat/chat.html", "utf-8");
@@ -59,6 +58,7 @@ app.get("/requested", (req, res) => {
 app.get("/provided", (req, res) => {
     res.send(cssTamplate + title("H2H") +  nav + feed + footer);
 });
+
 app.get("/myoffers", (req, res) => {
     if(req.session.userId){
         res.send(cssTamplate + title("H2H- My Offers") +  nav + feed + footer);
@@ -73,9 +73,6 @@ app.get("/search", (req, res) => {
     res.send(cssTamplate + title("H2H") +  nav + feed + footer);
 });
 
-
-
-
 app.get("/login", (req, res)  => {
     if (req.session.userId){
         res.redirect("/")
@@ -86,7 +83,6 @@ app.get("/login", (req, res)  => {
 app.get("/confirm/:code", (req,res) => {
     res.send(cssTamplate + title("H2H - Confirmation") + nav + confirmLogin + footer);
 });
-
 
 app.get("/signup", (req, res) => {
     if (req.session.userId){
@@ -142,7 +138,6 @@ app.get("/*", (req,res) => {
 })
 
 
-
 const server = http.createServer(app);
 const io = new Server(server);
 
@@ -153,8 +148,7 @@ io.on("connection", (socket) => {
         socket.to(room._id).emit("messageReceived", message);
         //Inform user that their message has been sent
         socket.emit("messageSent", message);
-
-        //Send the roomId to notify the recipient user
+        //Send the roomId to notify the recipient user, let the other user realtime information about new notifications
         socket.to(receiverId).emit("newNotification", room._id);
     });
 
@@ -168,10 +162,6 @@ io.on("connection", (socket) => {
     });
 
 });
-
-
-
-
 
 
 const PORT = process.env.PORT || 8080

@@ -1,5 +1,5 @@
 <div class="login" id="login">
-    <form action="/api/confirm/:code" method="POST">
+    <form action="/api/confirm" method="POST">
         <h3>to confirm your email please fill this information</h3>
         <label for="email">Email: </label>
         <input type="email" name="email" required>
@@ -14,5 +14,4 @@
 
 <script>
     document.getElementById("url-code").value = window.location.pathname.split('/confirm/')[1];
-    
 </script>

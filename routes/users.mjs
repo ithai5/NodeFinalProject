@@ -45,10 +45,8 @@ routerUsers.post("/api/signup", async (req, res) => {
     res.send({message: "sign-up successfuly"});
 });
 
-routerUsers.post("/api/confirm/:code", (req,res) => {
+routerUsers.post("/api/confirm", (req,res) => {
     userService.userValidation({... req.body}).then(serviceResponse => {
-        console.log("serviceResponse", serviceResponse);
-        console.log("api: ", serviceResponse[0].confirmationCode , req.body.code );
         if(serviceResponse[0].confirmationCode === req.body.code){
             //change user status
             userService.approveEmailAddress(serviceResponse[0]._id)

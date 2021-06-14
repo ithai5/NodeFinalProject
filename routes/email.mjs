@@ -1,7 +1,4 @@
-import express from 'express';
 import nodemailer from 'nodemailer'
-
-const emailRouter = express.Router();
 
 const trasporter = nodemailer.createTransport({
     service: 'gmail',
