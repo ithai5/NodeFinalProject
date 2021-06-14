@@ -16,7 +16,7 @@ function emailConfirmation (req, confirmationCode){
         html: `<h1>Email Confirmation</h1>
         <h2>Hello ${req.body.firstName}</h2>
         <p>Thank you for sign up to our H2H website. Please confirm your email by clicking on the following link</p>
-        <a href=http://localhost:3000/confirm/${confirmationCode}> Click here</a>
+        <a href=${process.env.USED_URL}/${confirmationCode}> Click here</a>
         </div>`,
     };
     trasporter.sendMail(mailOption, (error, info)=>{
