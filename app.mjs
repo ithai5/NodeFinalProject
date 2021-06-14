@@ -125,7 +125,7 @@ app.get("/chats" , (req, res) => {
 
 app.get("/chats/:id", (req, res) => {
     if(req.session.userId){
-        res.send(cssTamplate + nav + chat+ footer);
+        res.send(cssTamplate + title("H2H - Messages") + nav + chat+ footer);
     }
     else{
         res.redirect("/login");

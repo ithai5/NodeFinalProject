@@ -14,7 +14,7 @@ function emailConfirmation (req, confirmationCode){
         to: req.body.email,
         subject: "H2H- Please confirm your account",
         html: `<h1>Email Confirmation</h1>
-        <h2>Hello ${req.body.fisrtName}</h2>
+        <h2>Hello ${req.body.firstName}</h2>
         <p>Thank you for sign up to our H2H website. Please confirm your email by clicking on the following link</p>
         <a href=http://localhost:3000/confirm/${confirmationCode}> Click here</a>
         </div>`,
