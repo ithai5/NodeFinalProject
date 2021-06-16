@@ -20,5 +20,8 @@
     "scripts": {
         "dev-start": "cross-env PORT=3000 cross-env USED_URL=localhost:3000 nodemon app.mjs",
         "start": "node app.mjs"
-    }
+    },
+    "engines": {
+        "node": "14.x"
+      }
 }
