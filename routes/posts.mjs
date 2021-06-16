@@ -2,7 +2,7 @@ import express from 'express'
 import postServiceMjs from '../services/postService.mjs';
 
 const postService = postServiceMjs;
-const routerPosts = express.Router()
+const routerPosts = express.Router();
 
 
 routerPosts.get("/api/posts", (req, res) => {
@@ -14,7 +14,7 @@ routerPosts.get("/api/posts", (req, res) => {
         query = {type: req.query.type};
     }
     else if (req.query.user) {
-        query = {user: req.session.userId}
+        query = {user: req.session.userId};
     }
     postService.getPosts(query).then(result => {
         res.send({posts: result});
@@ -23,7 +23,7 @@ routerPosts.get("/api/posts", (req, res) => {
 
 routerPosts.all("/api/post/*", (req, res ,next) => {
     if(!req.session.userId) { 
-        res.sendStatus(401)
+        res.sendStatus(401);
     }
     else{
         next();
@@ -61,8 +61,6 @@ routerPosts.delete("/api/post", (req, res) => {
             res.redirect("/"); //maybe should return a json object and the redirect will heppend from the public folder
         });
     };
-
-
     //Either req.query or req.params
 });
 

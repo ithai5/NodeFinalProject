@@ -23,7 +23,6 @@ fetch("/api/users/profile").then(result => result.json()).then(currentUser => {
     });
 });
 
-
 function createDivTag(tag, className, content) {
     const divTag = document.createElement(tag);
     divTag.classList.add(className);

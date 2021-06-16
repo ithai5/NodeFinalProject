@@ -1,37 +1,40 @@
 import express from 'express';
 import userService from "../services/userService.mjs";
-import email from "./email.mjs";
+import email from "../services/email.mjs";
 import { v4 as uuidv4 } from 'uuid';
+import rateLimit from "express-rate-limit";
+
+
+const rateLimitAuth = rateLimit({
+    windowMs : 15 * 60 * 60 * 1000,
+    max : 5
+})
 
 const routerUsers = express.Router()
-routerUsers.post("/api/login", async (req, res) => {
+routerUsers.post("/api/login", rateLimitAuth, (req, res) => {
     //const loginInfo = {... req.body};
     userService.userValidation({... req.body})
         .then(serviceResponse => {
-            console.log(serviceResponse[0].status);
             if (serviceResponse && serviceResponse[0].status === "approve") {
-                console.log(serviceResponse);
                 //can store any other data from the db to the seasion
                 req.session.userId = serviceResponse[0]._id;
                 res.redirect("/");
             }
             else{
-                res.send({ message: "login failed" });
+                res.redirect("/login");
             }
-            
-        })
+        });
 });
 
-
-routerUsers.post("/api/signup", async (req, res) => {
-    const confirmationCode = uuidv4()
+routerUsers.post("/api/signup", rateLimitAuth, (req, res) => {
+    const confirmationCode = uuidv4();
     const signUpInfo = {... req.body, status: 'pending', confirmationCode: confirmationCode};
-    const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    const emailRegex = 
+        /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     let checks = [
         signUpInfo.firstName.length>1, signUpInfo.lastName.length>1, 
         emailRegex.test(signUpInfo.email), signUpInfo.password.length > 7
-    ]
-    
+    ];
     email.emailConfirmation(req, confirmationCode)
     if (!checks.includes(false)) {
         userService.signUp(signUpInfo).then(result => {
@@ -55,11 +58,10 @@ routerUsers.post("/api/confirm", (req,res) => {
             req.session.userId = serviceResponse[0]._id;
             res.redirect("/");
             }
-            else {
-                res.send("something went wrong")
-            }
+        else {
+            res.redirect("/confirm/" + req.body.code);
         }
-    )
+    })
 })
 
 routerUsers.all("/api/users/*", (req, res, next) => {
@@ -69,12 +71,10 @@ routerUsers.all("/api/users/*", (req, res, next) => {
     else{
         next();
     }
-    
-    
 })
-routerUsers.get("/api/users", (req, res) => {
-    userService.getUsers().then(result => res.send({users : result}));
-})
+// routerUsers.get("/api/users", (req, res) => {
+//     userService.getUsers().then(result => res.send({users : result}));
+// })
 
 routerUsers.get("/api/users/:id", (req, res) => {
     if (req.params.id === "profile") {
@@ -88,7 +88,6 @@ routerUsers.put("/api/users/notifications", (req, res) => {
     userService.deleteNotification(req.body.roomId, req.body.type, req.session.userId).
         then(result => res.send(result));
 })
-
 
 routerUsers.post("/api/users/notifications", (req, res) => {
     userService.saveNotification(req.body.roomId, req.body.type, req.body.receiverId).then(result => res.send(result));

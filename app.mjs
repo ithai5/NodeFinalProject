@@ -10,6 +10,7 @@ import routerPosts from "./routes/posts.mjs";
 import routerUsers from "./routes/users.mjs";
 import routerChats from "./routes/chats.mjs";
 
+
 const app = express();
 
 app.use(express.json());
@@ -19,6 +20,8 @@ app.use(createSession());
 app.use(routerUsers);
 app.use(routerPosts);
 app.use(routerChats);
+
+
 
 function title(titleName) {
     return `<title> ${titleName} </title>`;
@@ -37,7 +40,9 @@ const chat = fs.readFileSync(__dirname + "/public/components/chat/chat.html", "u
 const viewPost = fs.readFileSync(__dirname + "/public/components/post/viewPost.html","utf-8");
 const chatList = fs.readFileSync(__dirname + "/public/components/chatList/chatList.html","utf-8");
 const pageNotFound = fs.readFileSync(__dirname + "/public/components/pageNotFound/pageNotFound.html","utf-8");
+
 app.get("/*", (req, res, next) => {
+    //checks if there is a logged in user
     if (req.session.userId) {
         nav = fs.readFileSync(__dirname + "/public/templates/navbar/profileNavbar/profileNavbar.html", "utf-8");
     }
@@ -61,7 +66,7 @@ app.get("/provided", (req, res) => {
 
 app.get("/myoffers", (req, res) => {
     if(req.session.userId){
-        res.send(cssTamplate + title("H2H- My Offers") +  nav + feed + footer);
+        res.send(cssTamplate + title("H2H- My Offers") +  nav + feed + footer) 
     }
     else{
         res.redirect("/login")
