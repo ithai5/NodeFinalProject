@@ -19,6 +19,6 @@
     },
     "scripts": {
         "dev-start": "cross-env PORT=3000 cross-env USED_URL=localhost:3000 nodemon app.mjs",
-        "production-start": "cross.env PORT=3000 cross-env USED_URL=h2h-node.herokuapp.com node app.mjs"
+        "start": "node app.mjs"
     }
 }
