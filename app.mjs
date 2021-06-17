@@ -65,7 +65,6 @@ function unauthorizedUser(req, res, next){
 }
 
 function sawCookieModal(req, res ,next){
-    console.log(req.session.sawCookie);
     if(!req.session.sawCookie){
         nav = fs.readFileSync(__dirname + "/public/templates/navbar/navbar.html", "utf-8") +  cookieModal;
         req.session.sawCookie = true;
