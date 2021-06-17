@@ -110,6 +110,19 @@ app.get("/signup", (req, res) => {
     res.send(cssTamplate + title("H2H - Signup") + nav + signup + footer);
 });
 
+app.get("/signup/complete", (req, res) => {
+    res.send(cssTamplate + title("H2H - Signup") + nav + 
+        '<script>alert("Please check your email for complete the signup process");  window.location.href = "/"</script>' 
+        + footer)
+})
+
+app.get("/signup/failed", (req, res) => {
+    res.send(cssTamplate + title("H2H - Signup") + nav + 
+        '<script>alert("we could not complete your signup process please try again");  window.location.href = "/signup"</script>' 
+        + footer)
+})
+
+
 app.get("/logout", (req, res) => {
     req.session.destroy();
     res.redirect("/");

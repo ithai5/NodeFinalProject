@@ -35,17 +35,20 @@ routerUsers.post("/api/signup", rateLimitAuth, (req, res) => {
         signUpInfo.firstName.length>1, signUpInfo.lastName.length>1, 
         emailRegex.test(signUpInfo.email), signUpInfo.password.length > 7
     ];
-    email.emailConfirmation(req, confirmationCode)
     if (!checks.includes(false)) {
+        email.emailConfirmation(req, confirmationCode)
         userService.signUp(signUpInfo).then(result => {
             if (result){
-                res.send({message: "sign-up successfuly"});
-            }    else{
-                res.send({message: "failed to sign-up"});
+                res.redirect("/signup/complete");
+            }    
+            else{
+                res.redirect("/signup/failed");
             }        
         });    
     }
-    res.send({message: "sign-up successfuly"});
+    else{
+        res.redirect("/signup/failed");
+    }
 });
 
 routerUsers.post("/api/confirm", (req,res) => {
