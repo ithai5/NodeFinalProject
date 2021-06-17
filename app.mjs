@@ -24,6 +24,7 @@ app.use(routerPosts);
 app.use(routerChats);
 
 app.use(middelwareLoggedUser);
+app.use(sawCookieModal);
 
 function title(titleName) {
     return `<title> ${titleName} </title>`;
@@ -42,6 +43,7 @@ const chat = fs.readFileSync(__dirname + "/public/components/chat/chat.html", "u
 const viewPost = fs.readFileSync(__dirname + "/public/components/post/viewPost.html","utf-8");
 const chatList = fs.readFileSync(__dirname + "/public/components/chatList/chatList.html","utf-8");
 const pageNotFound = fs.readFileSync(__dirname + "/public/components/pageNotFound/pageNotFound.html","utf-8");
+const cookieModal = fs.readFileSync(__dirname + "/public/templates/cookieModal/cookieModal.html", "utf-8")
 
 function middelwareLoggedUser(req, res ,next){ //
     if (req.session.userId) {
@@ -60,6 +62,15 @@ function unauthorizedUser(req, res, next){
     else{
         res.redirect("/login");
     }
+}
+
+function sawCookieModal(req, res ,next){
+    console.log(req.session.sawCookie);
+    if(!req.session.sawCookie){
+        nav = fs.readFileSync(__dirname + "/public/templates/navbar/navbar.html", "utf-8") +  cookieModal;
+        req.session.sawCookie = true;
+    }
+    next();
 }
 
 app.get("/", (req, res) => {
