@@ -17,11 +17,13 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(express.static("public"));
 app.use(createSession());
+
+
 app.use(routerUsers);
 app.use(routerPosts);
 app.use(routerChats);
 
-
+app.use(middelwareLoggedUser);
 
 function title(titleName) {
     return `<title> ${titleName} </title>`;
@@ -29,7 +31,7 @@ function title(titleName) {
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const cssTamplate = fs.readFileSync(__dirname + "/public/templates/cssTamplates/cssTamplate.html", "utf-8");
-let nav = fs.readFileSync(__dirname + "/public/templates/navbar/navbar.html", "utf-8");
+let nav;
 const footer = fs.readFileSync(__dirname + "/public/templates/footer/footer.html", "utf-8");
 const feed = fs.readFileSync(__dirname + "/public/components/feed/feed.html", "utf-8");
 const login = fs.readFileSync(__dirname + "/public/components/login/login.html", "utf-8");
@@ -41,8 +43,7 @@ const viewPost = fs.readFileSync(__dirname + "/public/components/post/viewPost.h
 const chatList = fs.readFileSync(__dirname + "/public/components/chatList/chatList.html","utf-8");
 const pageNotFound = fs.readFileSync(__dirname + "/public/components/pageNotFound/pageNotFound.html","utf-8");
 
-app.get("/*", (req, res, next) => {
-    //checks if there is a logged in user
+function middelwareLoggedUser(req, res ,next){ //
     if (req.session.userId) {
         nav = fs.readFileSync(__dirname + "/public/templates/navbar/profileNavbar/profileNavbar.html", "utf-8");
     }
@@ -50,7 +51,16 @@ app.get("/*", (req, res, next) => {
         nav = fs.readFileSync(__dirname + "/public/templates/navbar/navbar.html", "utf-8");
     }
     next();
-})
+}
+
+function unauthorizedUser(req, res, next){
+    if (req.session.userId){
+        next();
+    }
+    else{
+        res.redirect("/login");
+    }
+}
 
 app.get("/", (req, res) => {
     res.send(cssTamplate + title("H2H") +  nav + feed + footer);
@@ -64,15 +74,9 @@ app.get("/provided", (req, res) => {
     res.send(cssTamplate + title("H2H") +  nav + feed + footer);
 });
 
-app.get("/myoffers", (req, res) => {
-    if(req.session.userId){
-        res.send(cssTamplate + title("H2H- My Offers") +  nav + feed + footer) 
-    }
-    else{
-        res.redirect("/login")
-    }
-})
-
+app.get("/myoffers", unauthorizedUser, (req, res) => {
+    res.send(cssTamplate + title("H2H- My Offers") +  nav + feed + footer) 
+});
 
 app.get("/search", (req, res) => {
     res.send(cssTamplate + title("H2H") +  nav + feed + footer);
@@ -101,40 +105,20 @@ app.get("/logout", (req, res) => {
     res.redirect("/");
 })
 
-app.get("/posts/:id", (req, res)=> {
-    if(req.session.userId){
-        res.send(cssTamplate + title("H2H - Post") + nav + viewPost + footer);
-    }
-    else{
-        res.redirect("/login");
-    }
+app.get("/posts/:id", unauthorizedUser, (req, res)=> {
+    res.send(cssTamplate + title("H2H - Post") + nav + viewPost + footer);
 });
 
-app.get("/createPost", (req, res) => {
-    if(req.session.userId){
-        res.send(cssTamplate + title("H2H - New Post") + nav + createPost + footer);
-    }
-    else{
-        res.redirect("/login");
-    }
+app.get("/createPost", unauthorizedUser, (req, res) => {
+    res.send(cssTamplate + title("H2H - New Post") + nav + createPost + footer);
 });
 
-app.get("/chats" , (req, res) => {
-    if(req.session.userId){
-        res.send(cssTamplate + title("H2H - Messages") + nav + chatList + footer);
-    }
-    else{
-        res.redirect("/login");
-    }    
+app.get("/chats" , unauthorizedUser, (req, res) => {
+    res.send(cssTamplate + title("H2H - Messages") + nav + chatList + footer);
 });
 
-app.get("/chats/:id", (req, res) => {
-    if(req.session.userId){
-        res.send(cssTamplate + title("H2H - Messages") + nav + chat+ footer);
-    }
-    else{
-        res.redirect("/login");
-    }
+app.get("/chats/:id", unauthorizedUser, (req, res) => {
+    res.send(cssTamplate + title("H2H - Messages") + nav + chat+ footer);
 })
 
 //get for all the other pages

@@ -17,7 +17,6 @@ fetch('/api/posts/' + postId).then(res => res.json()).then(post => {
         }
         else {
             const chatLink = createDivTag("div", "post-user", "This is your own post");
-            chatLink.href = "/chats/" +  post.user;
             postViewElement.appendChild(chatLink);
 
         }
