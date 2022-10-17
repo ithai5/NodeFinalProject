@@ -1,27 +1,31 @@
 {
-    "name": "node_final_project",
-    "version": "0.0.1",
-    "description": "A final project for KEA at node class,  creating a sevice platform where users can set offers for selling and buying services",
-    "main": "app.mjs",
-    "license": "MIT",
-    "dependencies": {
-        "bcrypt": "^5.0.1",
-        "connect-mongo": "^4.4.1",
-        "cross-env": "7.0.3",
-        "dotenv": "^9.0.2",
-        "express": "4.17.1",
-        "express-rate-limit": "^5.2.6",
-        "express-session": "^1.17.2",
-        "mongodb": "3.6.6",
-        "nodemailer": "^6.6.1",
-        "socket.io": "^4.1.2",
-        "uuid": "^8.3.2"
-    },
-    "scripts": {
-        "dev-start": "cross-env PORT=3000 cross-env USED_URL=localhost:3000 nodemon app.mjs",
-        "start": "node app.mjs"
-    },
-    "engines": {
-        "node": "14.x"
-      }
+  "name": "kea_marketplace",
+  "version": "0.0.1",
+  "description": "A final project for KEA at node class,  creating a service platform where users can set offers for selling and buying services",
+  "main": "app.js",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "connect-mongo": "^4.6.0",
+    "cross-env": "7.0.3",
+    "dotenv": "^16.0.3",
+    "express": "4.18.2",
+    "express-rate-limit": "^5.2.6",
+    "express-session": "^1.17.2",
+    "mongodb": "4.10.0",
+    "nodemailer": "^6.6.1",
+    "socket.io": "^4.1.2",
+    "uuid": "^8.3.2"
+  },
+  "scripts": {
+    "dev-start": "cross-env PORT=3000 cross-env USED_URL=localhost:3000 nodemon app.js",
+    "start": "node app.js"
+  },
+  "engines": {
+    "node": "18.x"
+  },
+  "devDependencies": {
+    "prettier": "2.7.1"
+  }
 }

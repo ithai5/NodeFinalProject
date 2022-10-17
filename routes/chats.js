@@ -1,5 +1,5 @@
 import express from 'express'
-import chatServiceMjs from '../services/chatService.mjs';
+import chatServiceMjs from '../services/chatService.js';
 
 const chatService = chatServiceMjs;
 const routerChats = express.Router();
