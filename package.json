@@ -11,12 +11,12 @@
     "cross-env": "7.0.3",
     "dotenv": "^16.0.3",
     "express": "4.18.2",
-    "express-rate-limit": "^5.2.6",
+    "express-rate-limit": "^6.6.0",
     "express-session": "^1.17.2",
     "mongodb": "4.10.0",
     "nodemailer": "^6.6.1",
     "socket.io": "^4.1.2",
-    "uuid": "^8.3.2"
+    "uuid": "^9.0.0"
   },
   "scripts": {
     "dev-start": "cross-env PORT=3000 cross-env USED_URL=localhost:3000 nodemon app.js",
