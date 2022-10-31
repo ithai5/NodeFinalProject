@@ -1,14 +1,15 @@
-import nodemailer from 'nodemailer';
+import { createTransport } from 'nodemailer';
 import * as dotenv from "dotenv"
 
 dotenv.config()
 
-const trasporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: process.env.EMAIL_ADDRESS,
-        pass: process.env.EMAIL_PASSWORD
-    }
+const transporter = createTransport({
+  host: process.env.SMPT_HOST,
+  port: process.env.SMTP_PORT,
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMPT_PASSWORD
+  },
 });
 
 function emailConfirmation (req, confirmationCode){
@@ -18,7 +19,7 @@ function emailConfirmation (req, confirmationCode){
         subject: "H2H- Please confirm your account",
     };
     console.log(process.env.USED_URL);
-    if(process.env.USED_URL ==="localhost:3000"){
+    if(process.env.USED_URL ==="localhost:8080"){
         mailOption.html = `<h1>Email Confirmation</h1>
         <h2>Hello ${req.body.firstName}</h2>
         <p>Thank you for sign up to our H2H website. Please confirm your email by clicking on the following link</p>
@@ -32,7 +33,7 @@ function emailConfirmation (req, confirmationCode){
         <a href=https://${process.env.USED_URL}/confirm/${confirmationCode}> Click here</a>
         </div>`
     }
-    trasporter.sendMail(mailOption, (error, info)=>{
+    transporter.sendMail(mailOption, (error, info)=>{
         if(error){
             console.log(error);
         }
