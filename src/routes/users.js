@@ -13,9 +13,9 @@ const routerUsers = express.Router()
 routerUsers.post('/api/login', rateLimitAuth, (req, res) => {
     //const loginInfo = {... req.body};
     userService.userValidation({ ...req.body }).then((serviceResponse) => {
-        if (serviceResponse && serviceResponse[0].status === 'approve') {
+        if (serviceResponse && serviceResponse.status === 'approve') {
             //can store any other data from the db to the seasion
-            req.session.userId = serviceResponse[0]._id
+            req.session.userId = serviceResponse.id
             res.redirect('/')
         } else {
             res.redirect('/login')

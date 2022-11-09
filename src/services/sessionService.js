@@ -9,7 +9,7 @@ function createSession() {
         secret: process.env.SESSION_SECRET,
         resave: false,
         saveUninitialized: true,
-        cookie: { maxAge: 1000 * 60 * 60 * 24 * 7 }, //1000mil * 60 seconds * 60 minuts * 24 hours * 7 days
+        cookie: { maxAge: 1000 * 60 * 60 * 24 * 7 }, //1000mil * 60 seconds * 60 minutes * 24 hours * 7 days
         store: MongoStore.create({
             mongoUrl: process.env.DB_CONNECTION,
             dbName: 'NodeExam',

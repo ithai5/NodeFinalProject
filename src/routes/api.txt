@@ -6,7 +6,7 @@ CHATS:
                     }
 
         /api/chats/:recieverId- {
-                        _id : room _id  
+                        id : room id
                         chatlog : [all the messages inside this room]
                         users: [members of the room]
         }
@@ -32,7 +32,7 @@ POST:
         /api/post - gets post and updateit
 
     delete 
-        /api/post - get id and delete the post
+        /api/post/id - get id and delete the post
 
 
 USERS: 
