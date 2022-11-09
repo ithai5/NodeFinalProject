@@ -32,7 +32,11 @@ routerUsers.post('/api/signup', rateLimitAuth, (req, res) => {
     }
     const emailRegex =
         /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+    const passwordRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[-+_!@#$%^&*.,?]).+$");
+
     let checks = [
+        // TODO: include in the end before handin
+        // passwordRegex.test(password.value),
         signUpInfo.firstName.length > 1,
         signUpInfo.lastName.length > 1,
         emailRegex.test(signUpInfo.email),
