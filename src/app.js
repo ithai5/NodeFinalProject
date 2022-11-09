@@ -215,8 +215,9 @@ app.get('/*', (req, res) => {
 const server = http.createServer(app)
 const io = new Server(server)
 
-io.on('connection', (socket) => {
+io.on('connection', (_socket) => {
     //Maybe don't send the entire room, since it sends the entire chatlog as well
+    /*
     socket.on('sendMessage', (room, message, receiverId) => {
         //Send a message to the correct chatroom
         socket.to(room.id).emit('messageReceived', message)
@@ -226,6 +227,7 @@ io.on('connection', (socket) => {
         socket.to(receiverId).emit('newNotification', room.id)
     })
 
+
     socket.on('joinRoom', (room) => {
         socket.join(room.id)
     })
@@ -233,7 +235,7 @@ io.on('connection', (socket) => {
     //Event should be called something else
     socket.on('triggerNotifications', (user) => {
         socket.join(user.id)
-    })
+    })*/
 })
 
 const PORT = process.env.PORT || 8080
