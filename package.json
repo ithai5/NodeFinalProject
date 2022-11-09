@@ -22,7 +22,8 @@
   },
   "scripts": {
     "dev-start": "cross-env PORT=3000 cross-env USED_URL=localhost:3000 nodemon src/app.js",
-    "start": "node src/app.js"
+    "start": "node src/app.js",
+    "generate-prisma": "npx prisma generate"
   },
   "engines": {
     "node": "18.x"

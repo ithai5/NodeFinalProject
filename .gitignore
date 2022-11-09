@@ -142,3 +142,12 @@ dist
 .svelte-kit
 
 # End of https://www.toptal.com/developers/gitignore/api/node
+/.idea/codeStyles/codeStyleConfig.xml
+/.azure/config
+/.idea/jsLibraryMappings.xml
+/.idea/KeaMarketplace.iml
+/.idea/modules.xml
+/.idea/prettier.xml
+/.idea/codeStyles/Project.xml
+/.idea/inspectionProfiles/Project_Default.xml
+/.idea/vcs.xml
