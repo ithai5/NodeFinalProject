@@ -23,14 +23,15 @@ app.use(routerUsers)
 app.use(routerPosts)
 app.use(routerChats)
 
-app.use(middelwareLoggedUser)
+app.use(middlewareLoggedUser)
 app.use(sawCookieModal)
 
 function title(titleName) {
     return `<title> ${titleName} </title>`
 }
 
-const __dirname = dirname(fileURLToPath(import.meta.url))
+const __dirname = dirname(fileURLToPath(import.meta.url)) + '/..'
+
 const cssTamplate = fs.readFileSync(
     __dirname + '/public/templates/cssTamplates/cssTamplate.html',
     'utf-8'
@@ -40,6 +41,7 @@ const footer = fs.readFileSync(
     __dirname + '/public/templates/footer/footer.html',
     'utf-8'
 )
+
 const feed = fs.readFileSync(
     __dirname + '/public/components/feed/feed.html',
     'utf-8'
@@ -81,7 +83,7 @@ const cookieModal = fs.readFileSync(
     'utf-8'
 )
 
-function middelwareLoggedUser(req, res, next) {
+function middlewareLoggedUser(req, res, next) {
     //
     if (req.session.userId) {
         nav = fs.readFileSync(
@@ -213,25 +215,27 @@ app.get('/*', (req, res) => {
 const server = http.createServer(app)
 const io = new Server(server)
 
-io.on('connection', (socket) => {
+io.on('connection', (_socket) => {
     //Maybe don't send the entire room, since it sends the entire chatlog as well
+    /*
     socket.on('sendMessage', (room, message, receiverId) => {
         //Send a message to the correct chatroom
-        socket.to(room._id).emit('messageReceived', message)
+        socket.to(room.id).emit('messageReceived', message)
         //Inform user that their message has been sent
         socket.emit('messageSent', message)
         //Send the roomId to notify the recipient user, let the other user realtime information about new notifications
-        socket.to(receiverId).emit('newNotification', room._id)
+        socket.to(receiverId).emit('newNotification', room.id)
     })
 
+
     socket.on('joinRoom', (room) => {
-        socket.join(room._id)
+        socket.join(room.id)
     })
 
     //Event should be called something else
     socket.on('triggerNotifications', (user) => {
-        socket.join(user._Id)
-    })
+        socket.join(user.id)
+    })*/
 })
 
 const PORT = process.env.PORT || 8080
