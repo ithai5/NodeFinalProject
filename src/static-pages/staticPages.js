@@ -13,12 +13,12 @@ const __dirname = dirname(fileURLToPath(import.meta.url)) + '/../..';
 const cssTamplate = fs.readFileSync(
 	__dirname + '/public/templates/cssTamplates/cssTamplate.html',
 	'utf-8'
-)
+);
 
 const footer = fs.readFileSync(
 __dirname + '/public/templates/footer/footer.html',
 'utf-8'
-)
+);
 
 const profileNav = fs.readFileSync(
 	__dirname + '/public/templates/navbar/profileNavbar/profileNavbar.html',
