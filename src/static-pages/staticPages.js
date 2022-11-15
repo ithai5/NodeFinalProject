@@ -16,8 +16,8 @@ const cssTamplate = fs.readFileSync(
 );
 
 const footer = fs.readFileSync(
-__dirname + '/public/templates/footer/footer.html',
-'utf-8'
+	__dirname + '/public/templates/footer/footer.html',
+	'utf-8'
 );
 
 const profileNav = fs.readFileSync(
