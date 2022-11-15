@@ -28,7 +28,7 @@ const profileNav = fs.readFileSync(
 const nav = fs.readFileSync(
 	__dirname + '/public/templates/navbar/navbar.html',
 	'utf-8'
-)
+);
 
 const feed = fs.readFileSync(
 	__dirname + '/public/components/feed/feed.html',
