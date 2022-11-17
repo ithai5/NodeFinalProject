@@ -8,8 +8,6 @@ import {
     removeNotification,
 } from '../repository/userRepository.js'
 
-const USERS = 'users'
-
 async function userValidation(query) {
     //send db query to get user hashed password in return
     const user = await getUserByMail(query.email)
@@ -25,14 +23,14 @@ async function userValidation(query) {
 
 async function signUp(signUpInfo) {
     let isCreated = false
-    await getUserByMail(signUpInfo.email).then(async (users) => {
-        if (!users.length) {
+    await getUserByMail(signUpInfo.email).then(async (user) => {
+        if (!user) {
             //checks if there is no user with this mail in the db
             signUpInfo.password = await passwordManagement.passwordToHash(
                 signUpInfo.password
             )
             signUpInfo.notifications = []
-            createUser(USERS, signUpInfo)
+            createUser(signUpInfo)
             isCreated = true
         }
     })

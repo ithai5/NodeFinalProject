@@ -16,6 +16,7 @@ routerUsers.post('/api/login', rateLimitAuth, (req, res) => {
         if (serviceResponse && serviceResponse.status === 'approve') {
             //can store any other data from the db to the seasion
             req.session.userId = serviceResponse.id
+            req.session.role = serviceResponse.role
             res.redirect('/')
         } else {
             res.redirect('/login')
@@ -32,10 +33,12 @@ routerUsers.post('/api/signup', rateLimitAuth, (req, res) => {
     }
     const emailRegex =
         /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
-    const passwordRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[-+_!@#$%^&*.,?]).+$");
+    const passwordRegex = new RegExp(
+        '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[-+_!@#$%^&*.,?]).+$'
+    )
 
     let checks = [
-        // TODO: include in the end before handin
+        // TODO: include in the end before hand-in
         // passwordRegex.test(password.value),
         signUpInfo.firstName.length > 1,
         signUpInfo.lastName.length > 1,
@@ -78,20 +81,16 @@ routerUsers.all('/api/users/*', (req, res, next) => {
         next()
     }
 })
-// routerUsers.get("/api/users", (req, res) => {
-//     userService.getUsers().then(result => res.send({users : result}));
-// })
 
+routerUsers.get('/api/users/profile', (req, res) => {
+    userService
+        .getUsers(req.session.userId)
+        .then((result) => res.send({ user: result }))
+})
 routerUsers.get('/api/users/:id', (req, res) => {
-    if (req.params.id === 'profile') {
-        userService
-            .getUsers(req.session.userId)
-            .then((result) => res.send({ user: result[0] }))
-    } else {
-        userService
-            .getUsers(req.params.id)
-            .then((result) => res.send({ user: result[0] }))
-    }
+    userService
+        .getUsers(req.params.id)
+        .then((result) => res.send({ user: result }))
 })
 
 routerUsers.put('/api/users/notifications', (req, res) => {

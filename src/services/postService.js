@@ -1,65 +1,76 @@
-import { prisma } from '../repository/dbService.js'
+import {
+    getPostByIdForUsers,
+    updatePostByUser,
+    deletePost,
+    getAllPostsForUsers,
+    getAllPostsForAdmin,
+    getAllPostsByTypeForUsers,
+    getAllPostsByTypeForAdmin,
+    getAllPostsByUserForUsers,
+    getAllPostsByUserForAdmin,
+    getAllPostsBySearchForAdmin,
+    getAllPostsBySearchForUsers,
+    createPostByUser,
+    getPostByIdForAdmin,
+} from '../repository/postRepository.js'
+import { POST_STATE, USER_ROLE } from '../util/enum.js'
 
-export function getAllPosts() {
-    return prisma.posts.findMany()
+export function getAllPosts(userRole) {
+    return userRole === USER_ROLE.ADMIN
+        ? getAllPostsForAdmin()
+        : getAllPostsForUsers()
 }
 
-export function getAllPostsBySearch(searchKey) {
-    return prisma.posts.findMany({
-        where: {
-            OR: [
-                { title: { contains: searchKey } },
-                { description: { contains: searchKey } },
-            ],
-        },
-    })
+export function getAllPostsByType(postType, userRole) {
+    return userRole === USER_ROLE.ADMIN
+        ? getAllPostsByTypeForAdmin(postType)
+        : getAllPostsByTypeForUsers(postType)
 }
 
-export function getAllPostsByType(requestedType) {
-    return prisma.posts.findMany({
-        where: {
-            type: requestedType,
-        },
-    })
+export function getAllPostsByUser(userId, userRole) {
+    return userRole === USER_ROLE.ADMIN
+        ? getAllPostsByUserForAdmin(userId)
+        : getAllPostsByUserForUsers(userId)
 }
 
-export function getAllPostsByUser(requestedUser) {
-    return prisma.posts.findMany({
-        where: {
-            user: {
-                equals: requestedUser,
-            },
-        },
-    })
+export function getAllPostsBySearch(searchKey, userRole) {
+    return userRole === USER_ROLE.ADMIN
+        ? getAllPostsBySearchForAdmin
+        : getAllPostsBySearchForUsers
 }
 
-export function getPostById(id) {
-    return prisma.posts.findUnique({ where: { id: id } })
+export function getPostById(postId, userRole) {
+    return userRole === USER_ROLE.ADMIN
+        ? getPostByIdForAdmin(postId)
+        : getPostByIdForUsers(postId)
 }
 
-export function createPost(post) {
-    return prisma.posts.create({ data: { ...post } })
+export function createPost(userId, post) {
+    const postToCreate = {
+        ...post,
+        user: userId,
+    }
+    return createPostByUser(postToCreate)
 }
 
-//Update one post
-function updatePost(id, updates) {
-    return prisma.posts.update({
-        where: {
-            id: id,
-        },
-        data: {
-            ...updates,
-        },
-    })
+export async function updatePost(userId, postDetails, postToUpdateId) {
+    const post = await getPostByIdForUsers(postId)
+    if (!post.userId === userId) return false
+    else {
+        updatePostByUser(postToUpdateId, { post, ...postDetails })
+        return true
+    }
 }
 
-//Delete one post
-function deletePost(id) {
-    return prisma.posts.delete({
-        where: {
-            id: id,
-        },
-    })
+export async function deletePostService(postId, userId, userRole) {
+    // checks if user has created this post
+    if (userRole !== USER_ROLE.ADMIN) {
+        const post = await getPostByIdForUsers(postId)
+        if (!post.userId === userId) return false
+        await updatePostByUser(postId, { state: POST_STATE.ARCHIVED })
+        return true
+    } else {
+        await deletePost(postId)
+        return true
+    }
 }
-
-export default { createPost, updatePost, deletePost }

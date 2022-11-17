@@ -1,7 +1,7 @@
 const postId = window.location.pathname.split('/posts/')[1] //get the post id from the url
 const postViewElement = document.getElementById('view-post')
 
-fetch('/api/posts/' + postId)
+fetch('/api/post/' + postId)
     .then((res) => res.json())
     .then((post) => {
         post = post.post
@@ -10,7 +10,25 @@ fetch('/api/posts/' + postId)
             .then((res) => res.json())
             .then((currentUser) => {
                 currentUser = currentUser.user
-                if (post.user !== currentUser.id) {
+                if (
+                    post.user === currentUser?.id ||
+                    currentUser.role === 'ADMIN'
+                ) {
+                    const chatLink = createDivTag(
+                        'div',
+                        'post-user',
+                        'This is your own post'
+                    )
+                    postViewElement.appendChild(chatLink)
+                    const deleteButton = createDivTag(
+                        'button',
+                        'delete-post',
+                        'Delete Post',
+                        'delete-post'
+                    )
+                    deleteButton.setAttribute('onclick', 'deletePost()')
+                    postViewElement.appendChild(deleteButton)
+                } else {
                     fetch('/api/users/' + post.user)
                         .then((res) => res.json())
                         .then((userInfo) => {
@@ -24,13 +42,6 @@ fetch('/api/posts/' + postId)
                             chatLink.href = '/chats/' + post.user
                             postViewElement.appendChild(chatLink)
                         })
-                } else {
-                    const chatLink = createDivTag(
-                        'div',
-                        'post-user',
-                        'This is your own post'
-                    )
-                    postViewElement.appendChild(chatLink)
                 }
             })
         if (post) {
@@ -49,9 +60,16 @@ fetch('/api/posts/' + postId)
         }
     })
 
-function createDivTag(tag, className, content) {
+function createDivTag(tag, className, content, id) {
     const divTag = document.createElement(tag)
     divTag.classList.add(className)
     divTag.innerText = content
+    if (id) divTag.setAttribute('id', id)
     return divTag
+}
+
+function deletePost() {
+    fetch('/api/post/' + postId, {
+        method: 'DELETE',
+    })
 }
