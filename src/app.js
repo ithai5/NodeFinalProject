@@ -3,8 +3,9 @@ import { fileURLToPath } from 'url'
 import express from 'express'
 import fs from 'fs'
 import http from 'http'
+import morgan from 'morgan'
 import { createSession } from './services/sessionService.js'
-import { Server } from 'socket.io'
+//import { Server } from 'socket.io'
 import routerPosts from './routes/posts.js'
 import routerUsers from './routes/users.js'
 import routerChats from './routes/chats.js'
@@ -12,17 +13,18 @@ import * as dotenv from 'dotenv'
 
 dotenv.config()
 
+const morganMiddleware = morgan('tiny')
+
 const app = express()
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static('public'))
 app.use(createSession())
-
+app.use(morganMiddleware)
 app.use(routerUsers)
 app.use(routerPosts)
 app.use(routerChats)
-
 app.use(middlewareLoggedUser)
 app.use(sawCookieModal)
 
@@ -213,11 +215,11 @@ app.get('/*', (req, res) => {
 })
 
 const server = http.createServer(app)
-const io = new Server(server)
+//const io = new Server(server)
 
-io.on('connection', (_socket) => {
-    //Maybe don't send the entire room, since it sends the entire chatlog as well
-    /*
+//io.on('connection', (_socket) => {
+//Maybe don't send the entire room, since it sends the entire chatlog as well
+/*
     socket.on('sendMessage', (room, message, receiverId) => {
         //Send a message to the correct chatroom
         socket.to(room.id).emit('messageReceived', message)
@@ -236,7 +238,7 @@ io.on('connection', (_socket) => {
     socket.on('triggerNotifications', (user) => {
         socket.join(user.id)
     })*/
-})
+//})
 
 const PORT = process.env.PORT || 8080
 
