@@ -9,7 +9,7 @@ function sendMessage() {
     if (message.length === 0) {
         return
     }
-    socket.emit('sendMessage', room, message, receiverId)
+    // socket.emit('sendMessage', room, message, receiverId)
     $.post('/api/chats/' + room.id, { message })
     $.post('/api/users/notifications', {
         roomId: room.id,
@@ -35,7 +35,7 @@ function joinRoom() {
                     type: 'chats',
                 },
             })
-            socket.emit('joinRoom', room)
+            // socket.emit('joinRoom', room)
             showChatLog()
         })
 }
@@ -61,12 +61,12 @@ function showNewMessage(content, isReceived) {
     chatBox.appendChild(mainDiv)
 }
 
-socket.on('messageReceived', (message) => {
-    //get trigered by the socket .emit
-    showNewMessage(message, true)
-})
+// socket.on('messageReceived', (message) => {
+//     //get trigered by the socket .emit
+//     showNewMessage(message, true)
+// })
 
-socket.on('messageSent', (message) => {
-    //get trigered by the socket .emit
-    showNewMessage(message, false)
-})
+// socket.on('messageSent', (message) => {
+//     //get trigered by the socket .emit
+//     showNewMessage(message, false)
+// })
