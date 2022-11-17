@@ -32,3 +32,5 @@ routerStaticAuth.get('/chats', (req, res) => {
 routerStaticAuth.get('/chats/:id', (req, res) => {
 	res.send(CSS + title('H2H - Messages') + navbar + chat + FOOTER)
 })
+
+export default routerStaticAuth;

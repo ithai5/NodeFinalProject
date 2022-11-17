@@ -10,6 +10,7 @@ import routerUsers from './routes/users.js'
 import routerChats from './routes/chats.js'
 import routerStatic from './routes/static.js'
 import * as dotenv from 'dotenv'
+import routerStaticAuth from './routes/staticAutorized.js'
 
 dotenv.config()
 
@@ -24,6 +25,7 @@ app.use(routerUsers)
 app.use(routerPosts)
 app.use(routerChats)
 app.use(routerStatic)
+app.use(routerStaticAuth)
 
 
 const server = http.createServer(app)
