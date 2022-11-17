@@ -100,35 +100,6 @@ routerStatic.get('/signup/failed', (req, res) => {
 	)
 })
 
-routerStatic.get('/logout', (req, res) => {
-	req.session.destroy()
-	res.redirect('/')
-})
-
-function unauthorizedUser(req, res, next) {
-	if (req.session.userId) {
-			next()
-	} else {
-			res.redirect('/login')
-	}
-}
-
-routerStatic.get('/posts/:id', unauthorizedUser, (req, res) => {
-	res.send(CSS + title('H2H - Post') + navbar + viewPost + FOOTER)
-})
-
-routerStatic.get('/createPost', unauthorizedUser, (req, res) => {
-	res.send(CSS + title('H2H - New Post') + navbar + createPost + FOOTER)
-})
-
-routerStatic.get('/chats', unauthorizedUser, (req, res) => {
-	res.send(CSS + title('H2H - Messages') + navbar + chatList + FOOTER)
-})
-
-routerStatic.get('/chats/:id', unauthorizedUser, (req, res) => {
-	res.send(CSS + title('H2H - Messages') + navbar + chat + FOOTER)
-})
-
 //get for all the other pages
 routerStatic.get('/*', (req, res) => {
 	res.send(
