@@ -3,7 +3,6 @@ import { fileURLToPath } from 'url'
 import express from 'express'
 import fs from 'fs'
 import http from 'http'
-import morgan from 'morgan'
 import { createSession } from './services/sessionService.js'
 //import { Server } from 'socket.io'
 import routerPosts from './routes/posts.js'
@@ -12,8 +11,6 @@ import routerChats from './routes/chats.js'
 import * as dotenv from 'dotenv'
 
 dotenv.config()
-
-const morganMiddleware = morgan('tiny')
 
 const app = express()
 
@@ -25,6 +22,7 @@ app.use(morganMiddleware)
 app.use(routerUsers)
 app.use(routerPosts)
 app.use(routerChats)
+
 app.use(middlewareLoggedUser)
 app.use(sawCookieModal)
 
