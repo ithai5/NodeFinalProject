@@ -25,13 +25,14 @@ model chats {
 }
 
 model posts {
-  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  id          String @id       @default(auto()) @map("_id") @db.ObjectId
   description String
   location    String
   price       String
   title       String
   type        String
   user        String
+  state       State            @default(PUBLISHED)
 }
 
 model session {
@@ -59,4 +60,14 @@ model users {
   notifications    UsersNotifications[]
   password         String
   status           String
+  role             Role                 @default(USER)
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+enum State {
+  PUBLISHED
+  ARCHIVED
 }

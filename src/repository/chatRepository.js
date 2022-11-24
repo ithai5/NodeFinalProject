@@ -13,7 +13,6 @@ export function getRoom(senderId, receiverId) {
 }
 
 export function getRoomsOfUser(userId) {
-    console.log(userId)
     return prisma.chats.findMany({
         where: { users: { has: userId } },
     })
