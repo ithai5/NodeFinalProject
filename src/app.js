@@ -9,11 +9,12 @@ import routerPosts from './routes/posts.js'
 import routerUsers from './routes/users.js'
 import routerChats from './routes/chats.js'
 import * as dotenv from 'dotenv'
+import morgan from 'morgan'
 
 dotenv.config()
 
 const app = express()
-
+const morganMiddleware = morgan('tiny')
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static('public'))
