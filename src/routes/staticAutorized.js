@@ -11,6 +11,10 @@ routerStaticAuth.use(function(req, res, next) {
 	}
 })
 
+routerStaticAuth.get('/myoffers', (req, res) => {
+	res.send(CSS + title('H2H- My Offers') + navbar + feed + FOOTER)
+})
+
 routerStaticAuth.get('/logout', (req, res) => {
 	if(req.session.userId)
 		delete req.session.userId
