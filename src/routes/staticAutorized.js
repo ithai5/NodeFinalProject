@@ -1,7 +1,27 @@
 import { Router } from "express";
+import {
+	cssTamplate,
+	footer,
+	profileNav,
+	feed,
+	createPost,
+	chat,
+	viewPost,
+	chatList,
+} from "../static-pages/staticPages.js";
+
+function title(titleName) {
+	if(titleName === null || titleName === undefined){
+		titleName = "H2H";
+	}
+	return `<title> ${titleName} </title>`
+}
 
 const routerStaticAuth = Router();
 
+const CSS = cssTamplate;
+const FOOTER = footer;
+const navbar = profileNav;
 
 routerStaticAuth.use(function(req, res, next) {
 	if (req.session.userId) {
@@ -35,6 +55,17 @@ routerStaticAuth.get('/chats', (req, res) => {
 
 routerStaticAuth.get('/chats/:id', (req, res) => {
 	res.send(CSS + title('H2H - Messages') + navbar + chat + FOOTER)
+})
+
+//get for all the other pages
+routerStaticAuth.get('/*', (req, res) => {
+	res.send(
+			CSS +
+					title('H2H - Page not found') +
+					navbar +
+					pageNotFound +
+					FOOTER
+	)
 })
 
 export default routerStaticAuth;
