@@ -52,15 +52,12 @@ routerStatic.get('/provided', (req, res) => {
 	res.send(CSS + title('H2H') + navbar + feed + FOOTER)
 })
 
-routerStatic.get('/myoffers', unauthorizedUser, (req, res) => {
-	res.send(CSS + title('H2H- My Offers') + navbar + feed + FOOTER)
-})
-
 routerStatic.get('/search', (req, res) => {
 	res.send(CSS + title('H2H') + navbar + feed + FOOTER)
 })
 
 routerStatic.get('/login', (req, res) => {
+	console.log("req sesison.userId: " +req.session.userId)
 	if (req.session.userId) {
 			res.redirect('/')
 	}
@@ -100,15 +97,5 @@ routerStatic.get('/signup/failed', (req, res) => {
 	)
 })
 
-//get for all the other pages
-routerStatic.get('/*', (req, res) => {
-	res.send(
-			CSS +
-					title('H2H - Page not found') +
-					navbar +
-					pageNotFound +
-					FOOTER
-	)
-})
 
 export default routerStatic;
