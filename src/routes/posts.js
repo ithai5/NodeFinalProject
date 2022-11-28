@@ -2,12 +2,12 @@ import express from 'express'
 import {
     deletePostService,
     getAllPosts,
-    getAllPostsBySearch,
     getAllPostsByType,
     getAllPostsByUser,
     updatePost,
     createPost,
     getPostById,
+    getAllPostsBySearch,
 } from '../services/postService.js'
 import { userRoleMapper } from '../util/typeMapper.js'
 
