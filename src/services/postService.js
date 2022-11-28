@@ -35,8 +35,8 @@ export function getAllPostsByUser(userId, userRole) {
 
 export function getAllPostsBySearch(searchKey, userRole) {
     return userRole === USER_ROLE.ADMIN
-        ? getAllPostsBySearchForAdmin
-        : getAllPostsBySearchForUsers
+        ? getAllPostsBySearchForAdmin(searchKey)
+        : getAllPostsBySearchForUsers(searchKey)
 }
 
 export function getPostById(postId, userRole) {
