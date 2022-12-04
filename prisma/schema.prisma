@@ -1,0 +1,73 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+type ChatsChatLog {
+  message   String
+  timeStamp DateTime @db.Date
+  user      String
+}
+
+type UsersNotifications {
+  room String
+  type String
+}
+
+model chats {
+  id      String         @id @default(auto()) @map("_id") @db.ObjectId
+  chatLog ChatsChatLog[]
+  users   String[]
+}
+
+model posts {
+  id          String @id       @default(auto()) @map("_id") @db.ObjectId
+  description String
+  location    String
+  price       String
+  title       String
+  type        String
+  user        String
+  state       State            @default(PUBLISHED)
+}
+
+model session {
+  id      String   @id @map("_id")
+  expires DateTime @db.Date
+  session String
+
+  @@index([expires], map: "expires_1")
+}
+
+model sessions {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  /// Field referred in an index, but found no data to define the type.
+  expires Json?
+
+  @@index([expires], map: "expires_1")
+}
+
+model users {
+  id               String               @id @default(auto()) @map("_id") @db.ObjectId
+  confirmationCode String
+  email            String
+  firstName        String
+  lastName         String
+  notifications    UsersNotifications[]
+  password         String
+  status           String
+  role             Role                 @default(USER)
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+enum State {
+  PUBLISHED
+  ARCHIVED
+}
